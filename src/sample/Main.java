@@ -17,7 +17,7 @@ public class Main extends Application {
         model.addObserver(viewModel);
         Parent root = FXMLLoader.load(getClass().getResource("../View/MyView.fxml"));
         primaryStage.setTitle("Maze");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
     }
 

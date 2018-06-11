@@ -43,7 +43,7 @@ public class MazeDisplay extends Canvas {
     public void setCharacterPosition(int row, int column) {
         characterPositionRow = row;
         characterPositionColumn = column;
-        redraw();
+//        redraw();
     }
 
     public void redraw() {

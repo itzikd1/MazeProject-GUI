@@ -1,6 +1,7 @@
 package ViewModel;
 
 import Model.IModel;
+import algorithms.search.Solution;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,8 +17,8 @@ public class MyViewModel extends Observable implements Observer {
 
     private IModel model;
 
-    private int characterPositionRowIndex = 1;
-    private int characterPositionColumnIndex = 1;
+    private int characterPositionRowIndex = 0;
+    private int characterPositionColumnIndex = 0;
 
     public StringProperty characterPositionRow = new SimpleStringProperty("1"); //For Binding
     public StringProperty characterPositionColumn = new SimpleStringProperty("1"); //For Binding
@@ -53,5 +54,9 @@ public class MyViewModel extends Observable implements Observer {
 
     public int getCharacterPositionColumn() {
         return characterPositionColumnIndex;
+    }
+
+    public Solution getSolution(){
+        return model.generateSolution();
     }
 }

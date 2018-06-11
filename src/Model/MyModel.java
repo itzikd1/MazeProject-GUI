@@ -33,9 +33,11 @@ public class MyModel extends Observable implements IModel {
     }
 
     public void MazeToArr(Maze m) {
-        maze = new int [m.numOfColumns()][m.numOfRows()];
-        for (int i = 0; i < m.numOfColumns(); i++)
-            for (int j = 0; j < m.numOfRows(); j++)
+        int row = m.numOfRows();
+        int col = m.numOfColumns();
+        maze = new int [m.numOfRows()][m.numOfColumns()];
+        for (int i = 0; i < m.numOfRows(); i++)
+            for (int j = 0; j < m.numOfColumns(); j++)
                 maze[i][j] = m.getCellValue(i, j); //TODO rannan check if this is good rows\col
     }
 

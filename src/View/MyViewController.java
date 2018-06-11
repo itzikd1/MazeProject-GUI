@@ -46,6 +46,7 @@ public class MyViewController implements Observer, IView {
         if (o == viewModel) {
             displayMaze(viewModel.getMaze());
             GenerateMaze.setDisable(false);
+            mazeDisplayer.setCharacterPosition(mazeDisplayer.getCharacterPositionRow(),mazeDisplayer.getCharacterPositionColumn());
         }
     }
 
