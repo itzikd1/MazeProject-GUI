@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.Canvas?>
+<?import View.MazeDisplay?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -14,7 +14,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+            onKeyPressed="#KeyPressed" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <top>
       <MenuBar prefWidth="600.0" BorderPane.alignment="CENTER">
         <menus>
@@ -37,7 +38,7 @@
       </MenuBar>
    </top>
    <center>
-      <Canvas height="200.0" width="200.0" BorderPane.alignment="CENTER" />
+      <MazeDisplay fx:id="mazeDisplayer" height="371.0" width="457.0" BorderPane.alignment="CENTER" />
    </center>
    <left>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
@@ -63,10 +64,10 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Col" translateX="8.0" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <AnchorPane prefHeight="245.0" prefWidth="100.0">
+            <AnchorPane prefHeight="245.0">
                <children>
-                  <Button fx:id="SolveMaze" layoutX="4.0" layoutY="46.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="132.0" text="Solve Maze" />
-                  <Button fx:id="GenerateMaze" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Generate Maze" />
+                  <Button fx:id="SolveMaze" layoutX="4.0" layoutY="46.0" mnemonicParsing="false" onAction="#solveMaze" prefHeight="25.0" prefWidth="132.0" text="Solve Maze" />
+                  <Button fx:id="GenerateMaze" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#generateMaze" prefHeight="25.0" prefWidth="118.0" text="Generate Maze" />
                </children>
             </AnchorPane>
          </children>

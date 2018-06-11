@@ -8,15 +8,21 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.util.Observable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /*
 responsible for all the function part
  */
 public class MyModel extends Observable implements IModel {
-    private Maze maze;
+    private int[][] maze;
     private Solution solve;
-    private int characterPositionRow = 1;
-    private int characterPositionColumn = 1;
+    private int characterPositionRow;
+    private int characterPositionColumn;
+    private int[][] mazeSolutionArr;
     private KeyEvent keyEvent;
+    private ExecutorService threadPool = Executors.newCachedThreadPool();
+
 
     public int getCharacterPositionRow() {
         return characterPositionRow;
@@ -26,61 +32,52 @@ public class MyModel extends Observable implements IModel {
         return characterPositionColumn;
     }
 
+    public void MazeToArr(Maze m) {
+        maze = new int [m.numOfColumns()][m.numOfRows()];
+        for (int i = 0; i < m.numOfColumns(); i++)
+            for (int j = 0; j < m.numOfRows(); j++)
+                maze[i][j] = m.getCellValue(i, j); //TODO rannan check if this is good rows\col
+    }
 
     @Override
-    public void generateMaze(int width, int height) {
-        MyMazeGenerator newMaze = new MyMazeGenerator();
-        maze = newMaze.generate(width,height);
-        Position UpdatePos = new Position(1,1);
-        UpdatePos = maze.getStartPosition();
-        characterPositionColumn = UpdatePos.getColumnIndex();
-        characterPositionRow = UpdatePos.getRowIndex();
-        setChanged();
-        notifyObservers();
-        }
+    public int[][] generateMaze(int width, int height) {
+        //Generate maze
+        System.out.println("test");
+            MyMazeGenerator newMaze = new MyMazeGenerator();
+            Maze newMazeGenerate = newMaze.generate(width, height);
+            MazeToArr(newMazeGenerate);
+            Position UpdatePos = new Position(1, 1);
+            UpdatePos = newMazeGenerate.getStartPosition();
+            characterPositionColumn = UpdatePos.getColumnIndex();
+            characterPositionRow = UpdatePos.getRowIndex();
+            setChanged();
+            notifyObservers();
+        return maze;
+    }
 
     @Override
     public void moveCharacter(KeyCode movement) {
-        int characterRow = getCharacterPositionRow();
-        int characterColumn = getCharacterPositionColumn();
-        int characterRowNewPosition = characterRow;
-        int characterColumnNewPosition = characterColumn;
-
-
-        if (keyEvent.getCode() == KeyCode.NUMPAD8) {
-            characterRowNewPosition = characterRow - 1;
-            characterColumnNewPosition = characterColumn;
+        switch (movement) {
+            case UP:
+                characterPositionRow--;
+                break;
+            case NUMPAD8:
+                characterPositionRow++;
+                break;
+            case NUMPAD6:
+                characterPositionColumn++;
+                break;
+            case NUMPAD4:
+                characterPositionColumn--;
+                break;
         }
-        else if (keyEvent.getCode() == KeyCode.NUMPAD2) {
-            characterRowNewPosition = characterRow + 1;
-            characterColumnNewPosition = characterColumn;
-        }
-        else if (keyEvent.getCode() == KeyCode.NUMPAD6) {
-            characterRowNewPosition = characterRow;
-            characterColumnNewPosition = characterColumn+1;
-        }
-        else if (keyEvent.getCode() == KeyCode.NUMPAD4) {
-            characterRowNewPosition = characterRow;
-            characterColumnNewPosition = characterColumn -1;
-        }
-        else if (keyEvent.getCode() == KeyCode.HOME){
-            characterRowNewPosition = 0;
-            characterColumnNewPosition = 0;
-        }
-        else if (keyEvent.getCode() == KeyCode.END){
-            characterRowNewPosition = 0;
-            characterColumnNewPosition = 0;
-        }
-
-        //Updates the MazeDisplayer
-        setCharacterPosition(characterRowNewPosition, characterColumnNewPosition);
-
-        //Updates the labels
-//        CharacterRow.set(String.valueOf(mazeDisplayer.getCharacterPositionRow()));
-//        CharacterColumn.set(String.valueOf(mazeDisplayer.getCharacterPositionColumn()));
-        keyEvent.consume();
         setChanged();
         notifyObservers();
+    }
+
+    @Override
+    public int[][] getMaze() {
+        return maze;
     }
 
     public void setCharacterPosition(int row, int column) {
@@ -89,11 +86,16 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
-    public void generateSolution() {
+    public Solution generateSolution() {
         Solution keepSolution = new Solution();
         keepSolution.getSolutionPath();
         solve = keepSolution;
         setChanged();
         notifyObservers();
+        return solve;
+    }
+
+    public int[][] getMazeSolutionArr() {
+        return mazeSolutionArr;
     }
 }

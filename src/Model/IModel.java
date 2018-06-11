@@ -1,13 +1,14 @@
 package Model;
 
-import javafx.scene.canvas.Canvas;
+import algorithms.search.Solution;
 import javafx.scene.input.KeyCode;
 
 public interface IModel {
 
-    void generateMaze(int width,int height);
+    int [][] generateMaze(int width,int height);
     void moveCharacter(KeyCode movement);
-    void generateSolution();
+    int[][] getMaze();
+    Solution generateSolution();
     int getCharacterPositionRow();
     int getCharacterPositionColumn();
 }

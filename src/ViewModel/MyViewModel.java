@@ -1,32 +1,57 @@
 package ViewModel;
 
 import Model.IModel;
-import View.MazeDisplay;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.scene.control.Alert;
+import javafx.scene.input.KeyCode;
 
-public class MyViewModel {
-    private IModel mode;
-    public MazeDisplay mazeDisplayer;
+import java.util.Observable;
+import java.util.Observer;
 
-    public MyViewModel(IModel mode) {
-        this.mode = mode;
+
+public class MyViewModel extends Observable implements Observer {
+
+    private IModel model;
+
+    private int characterPositionRowIndex = 1;
+    private int characterPositionColumnIndex = 1;
+
+    public StringProperty characterPositionRow = new SimpleStringProperty("1"); //For Binding
+    public StringProperty characterPositionColumn = new SimpleStringProperty("1"); //For Binding
+
+    public MyViewModel(IModel model) {
+        this.model = model;
     }
 
-
-    public void generateMaze(int width, int height) {
-        mode.generateMaze(width,height);
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o == model) {
+            setChanged();
+            notifyObservers();
+        }
     }
 
+    public int[][] generateMaze(int width, int height) {
+        return model.generateMaze(width, height);
 
-    /**
-     * check if string is an int
-     */
-    private int checkInt(String check) {
-        try {
-            int temp = Integer.parseInt(check); //use your variable or object in place of obj
-            return temp;
-        }
-        catch (NumberFormatException e) {
-            return 10;
-        }
+    }
+
+    public void moveCharacter(KeyCode movement) {
+        model.moveCharacter(movement);
+    }
+
+    public int[][] getMaze() {
+        return model.getMaze();
+    }
+
+    public int getCharacterPositionRow() {
+        return characterPositionRowIndex;
+    }
+
+    public int getCharacterPositionColumn() {
+        return characterPositionColumnIndex;
     }
 }

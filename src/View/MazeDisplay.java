@@ -38,7 +38,6 @@ public class MazeDisplay extends Canvas {
 
     public void setMaze(int[][] maze) {
         this.maze = maze;
-        redraw();
     }
 
     public void setCharacterPosition(int row, int column) {
@@ -57,7 +56,7 @@ public class MazeDisplay extends Canvas {
             try {
                 GraphicsContext graphicsContext2D = getGraphicsContext2D();
                 graphicsContext2D.clearRect(0, 0, getWidth(), getHeight()); //Clears the canvas
-                Image wallImage = new Image(new FileInputStream(ImageFileNameWall.get()));
+                Image wallImage = new Image(new FileInputStream("resources/images/1.jpg"));
 
                 //Draw Maze
                 for (int i = 0; i < maze.length; i++) {
@@ -72,7 +71,7 @@ public class MazeDisplay extends Canvas {
                 //Draw Character
                 //gc.setFill(Color.RED);
                 //gc.fillOval(characterPositionColumn * cellHeight, characterPositionRow * cellWidth, cellHeight, cellWidth);
-                Image characterImage = new Image(new FileInputStream(ImageFileNameCharacter.get()));
+                Image characterImage = new Image(new FileInputStream("resources/images/2.png"));
                 graphicsContext2D.drawImage(characterImage, characterPositionColumn * cellHeight, characterPositionRow * cellWidth, cellHeight, cellWidth);
             } catch (FileNotFoundException e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
