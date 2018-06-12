@@ -62,8 +62,8 @@
                   <TextField fx:id="txt_col" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="txt_row" GridPane.columnIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Col" translateX="8.0" GridPane.rowIndex="1" />
-                  <Label fx:id="lbl_columnsNum" text="Row" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label fx:id="lbl_rowsNum" text="Col" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="lbl_rowsNum" text="Row" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="lbl_columnsNum" text="Col" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Current Row" GridPane.rowIndex="2" />
                   <Text layoutX="10.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Col" GridPane.rowIndex="3" />
                </children>

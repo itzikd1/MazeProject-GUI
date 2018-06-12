@@ -31,6 +31,9 @@ public class MyViewController implements Observer, IView {
     public javafx.scene.control.Label lbl_columnsNum;//where user wants to go
     public javafx.scene.control.Button GenerateMaze;
 
+    public StringProperty characterPositionRow = new SimpleStringProperty();
+    public StringProperty characterPositionColumn = new SimpleStringProperty();
+
     public void setViewModel(MyViewModel viewModel) {
         this.viewModel = viewModel;
         bindProperties(viewModel);
@@ -44,7 +47,7 @@ public class MyViewController implements Observer, IView {
     @Override
     public void update(Observable o, Object arg) {
         if (o == viewModel) {
-            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(), viewModel.getCharacterPositionColumn());
+//            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(), viewModel.getCharacterPositionColumn());
             displayMaze(viewModel.getMaze());
             GenerateMaze.setDisable(false);
 
@@ -101,9 +104,6 @@ public class MyViewController implements Observer, IView {
     }
 
     //region String Property for Binding
-    public StringProperty characterPositionRow = new SimpleStringProperty();
-
-    public StringProperty characterPositionColumn = new SimpleStringProperty();
 
     public String getCharacterPositionRow() {
         return characterPositionRow.get();

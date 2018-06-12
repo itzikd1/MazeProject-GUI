@@ -33,7 +33,7 @@ public class MyModel extends Observable implements IModel {
         return characterPositionColumn;
     }
 
-    public void MazeToArr(Maze m) {
+    public void MazeToArr(Maze m) { //TODO from int to byte
         int row = m.numOfRows();
         int col = m.numOfColumns();
         maze = new int[m.numOfRows()][m.numOfColumns()];
@@ -67,7 +67,7 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
-    public void moveCharacter(KeyCode movement) {
+    public void moveCharacter(KeyCode movement) { //TODO do we need to do this in controler? beacuse then we double the code
         int y = characterPositionRow;
         int x = characterPositionColumn;
         switch (movement) {
