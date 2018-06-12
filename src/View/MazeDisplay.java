@@ -68,15 +68,15 @@ public class MazeDisplay extends Canvas {
                     }
                 }
 
-                //Draw solution
-                for (int i = 0; i < maze.length; i++) {
-                    for (int j = 0; j < maze[i].length; j++) {
-                        if (maze[i][j] == 1) {
-                            //graphicsContext2D.fillRect(i * cellHeight, j * cellWidth, cellHeight, cellWidth);
-                            graphicsContext2D.drawImage(wallImage, i * cellHeight, j * cellWidth, cellHeight, cellWidth);
-                        }
-                    }
-                }
+//                //Draw solution
+//                for (int i = 0; i < maze.length; i++) {
+//                    for (int j = 0; j < maze[i].length; j++) {
+//                        if (maze[i][j] == 1) {
+//                            //graphicsContext2D.fillRect(i * cellHeight, j * cellWidth, cellHeight, cellWidth);
+//                            graphicsContext2D.drawImage(wallImage, i * cellHeight, j * cellWidth, cellHeight, cellWidth);
+//                        }
+//                    }
+//                }
 
                 //Draw Character
                 //gc.setFill(Color.RED);

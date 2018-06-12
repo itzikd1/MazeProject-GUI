@@ -45,7 +45,7 @@ public class MyModel extends Observable implements IModel {
     @Override
     public int[][] generateMaze(int width, int height) {
         //Generate maze
-        solved=false;
+        solved = false;
         MyMazeGenerator newMaze = new MyMazeGenerator();
         Maze newMazeGenerate = newMaze.generate(width, height);
         MazeToArr(newMazeGenerate);
@@ -58,36 +58,62 @@ public class MyModel extends Observable implements IModel {
         return maze;
     }
 
+    private boolean isNotLegalMove(int x, int y) {
+        if (x < 0 || y < 0 || x > maze.length - 1 || y > maze.length - 1)
+            return true;
+        if (maze[x][y] == 1)
+            return true;
+        return false;
+    }
+
     @Override
     public void moveCharacter(KeyCode movement) {
+        int y = characterPositionRow;
+        int x = characterPositionColumn;
         switch (movement) {
             case NUMPAD8:
-                characterPositionRow--;
+                if (isNotLegalMove(x, y - 1) == false)
+                    characterPositionRow--;
                 break;
             case NUMPAD2:
-                characterPositionRow++;
+                if (isNotLegalMove(x, y + 1) == false)
+                    characterPositionRow++;
                 break;
             case NUMPAD6:
-                characterPositionColumn++;
+                if (isNotLegalMove(x + 1, y) == false)
+                    characterPositionColumn++;
                 break;
             case NUMPAD4:
-                characterPositionColumn--;
+                if (isNotLegalMove(x - 1, y) == false)
+                    characterPositionColumn--;
                 break;
             case NUMPAD3:
-                characterPositionColumn++;
-                characterPositionRow++;
+                if (isNotLegalMove(x + 1, y + 1) == false)
+                    if (isNotLegalMove(x, y + 1) == false || isNotLegalMove(x + 1, y) == false) {
+                        characterPositionColumn++;
+                        characterPositionRow++;
+                    }
                 break;
             case NUMPAD1:
-                characterPositionColumn--;
-                characterPositionRow++;
+                if (isNotLegalMove(x - 1, y + 1) == false)
+                    if (isNotLegalMove(x, y + 1) == false || isNotLegalMove(x - 1, y) == false) {
+                        characterPositionColumn--;
+                        characterPositionRow++;
+                    }
                 break;
             case NUMPAD9:
-                characterPositionColumn++;
-                characterPositionRow--;
+                if (isNotLegalMove(x + 1, y - 1) == false)
+                    if (isNotLegalMove(x, y - 1) == false || isNotLegalMove(x + 1, y) == false) {
+                        characterPositionColumn++;
+                        characterPositionRow--;
+                    }
                 break;
             case NUMPAD7:
-                characterPositionColumn--;
-                characterPositionRow--;
+                if (isNotLegalMove(x - 1, y - 1) == false)
+                    if (isNotLegalMove(x, y - 1) == false || isNotLegalMove(x - 1, y) == false) {
+                        characterPositionColumn--;
+                        characterPositionRow--;
+                    }
                 break;
         }
         setChanged();
@@ -115,7 +141,7 @@ public class MyModel extends Observable implements IModel {
         Solution keepSolution = new Solution();
         keepSolution.getSolutionPath();
         solve = keepSolution;
-        solved=true;
+        solved = true;
         setChanged();
         notifyObservers();
         return solve;
