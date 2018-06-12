@@ -30,6 +30,10 @@ public class MyViewModel extends Observable implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (o == model) {
+            characterPositionRowIndex = model.getCharacterPositionRow();
+            characterPositionRow.set(characterPositionRowIndex + "");
+            characterPositionColumnIndex = model.getCharacterPositionColumn();
+            characterPositionColumn.set(characterPositionColumnIndex + "");
             setChanged();
             notifyObservers();
         }

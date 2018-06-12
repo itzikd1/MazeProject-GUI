@@ -1,5 +1,6 @@
 package Model;
 
+import View.MazeDisplay;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.mazeGenerators.Position;
@@ -60,10 +61,10 @@ public class MyModel extends Observable implements IModel {
     @Override
     public void moveCharacter(KeyCode movement) {
         switch (movement) {
-            case UP:
+            case NUMPAD8:
                 characterPositionRow--;
                 break;
-            case NUMPAD8:
+            case NUMPAD2:
                 characterPositionRow++;
                 break;
             case NUMPAD6:
@@ -72,9 +73,26 @@ public class MyModel extends Observable implements IModel {
             case NUMPAD4:
                 characterPositionColumn--;
                 break;
+            case NUMPAD3:
+                characterPositionColumn++;
+                characterPositionRow++;
+                break;
+            case NUMPAD1:
+                characterPositionColumn--;
+                characterPositionRow++;
+                break;
+            case NUMPAD9:
+                characterPositionColumn++;
+                characterPositionRow--;
+                break;
+            case NUMPAD7:
+                characterPositionColumn--;
+                characterPositionRow--;
+                break;
         }
         setChanged();
         notifyObservers();
+
     }
 
     @Override

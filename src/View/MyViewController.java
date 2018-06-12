@@ -28,7 +28,7 @@ public class MyViewController implements Observer, IView {
     public javafx.scene.control.TextField txt_row;
     public javafx.scene.control.TextField txt_col;
     public javafx.scene.control.Label lbl_rowsNum;
-    public javafx.scene.control.Label lbl_columnsNum;
+    public javafx.scene.control.Label lbl_columnsNum;//where user wants to go
     public javafx.scene.control.Button GenerateMaze;
 
     public void setViewModel(MyViewModel viewModel) {
@@ -37,16 +37,19 @@ public class MyViewController implements Observer, IView {
     }
 
     private void bindProperties(MyViewModel viewModel) {
-        lbl_rowsNum.textProperty().bind(viewModel.characterPositionRow);
-        lbl_columnsNum.textProperty().bind(viewModel.characterPositionColumn);
+//        lbl_rowsNum.textProperty().bind(viewModel.characterPositionRow);
+//        lbl_columnsNum.textProperty().bind(viewModel.characterPositionColumn);
     }
 
     @Override
     public void update(Observable o, Object arg) {
         if (o == viewModel) {
+            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(), viewModel.getCharacterPositionColumn());
             displayMaze(viewModel.getMaze());
             GenerateMaze.setDisable(false);
-            mazeDisplayer.setCharacterPosition(mazeDisplayer.getCharacterPositionRow(),mazeDisplayer.getCharacterPositionColumn());
+
+            //mazeDisplayer.setCharacterPosition(mazeDisplayer.getCharacterPositionRow(),mazeDisplayer.getCharacterPositionColumn());
+            mazeDisplayer.redraw();
         }
     }
 

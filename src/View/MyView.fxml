@@ -38,7 +38,7 @@
       </MenuBar>
    </top>
    <center>
-      <MazeDisplay fx:id="mazeDisplayer" height="371.0" width="457.0" BorderPane.alignment="CENTER" />
+      <MazeDisplay fx:id="mazeDisplayer" height="400.0" width="400.0" BorderPane.alignment="CENTER" />
    </center>
    <left>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
