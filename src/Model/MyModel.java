@@ -1,6 +1,5 @@
 package Model;
 
-import View.MazeDisplay;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.mazeGenerators.Position;
@@ -18,6 +17,7 @@ responsible for all the function part
 public class MyModel extends Observable implements IModel {
     private int[][] maze;
     private Solution solve;
+    private boolean solved;
     private int characterPositionRow;
     private int characterPositionColumn;
     private int[][] mazeSolutionArr;
@@ -36,7 +36,7 @@ public class MyModel extends Observable implements IModel {
     public void MazeToArr(Maze m) {
         int row = m.numOfRows();
         int col = m.numOfColumns();
-        maze = new int [m.numOfRows()][m.numOfColumns()];
+        maze = new int[m.numOfRows()][m.numOfColumns()];
         for (int i = 0; i < m.numOfRows(); i++)
             for (int j = 0; j < m.numOfColumns(); j++)
                 maze[i][j] = m.getCellValue(i, j); //TODO rannan check if this is good rows\col
@@ -45,16 +45,16 @@ public class MyModel extends Observable implements IModel {
     @Override
     public int[][] generateMaze(int width, int height) {
         //Generate maze
-        System.out.println("test");
-            MyMazeGenerator newMaze = new MyMazeGenerator();
-            Maze newMazeGenerate = newMaze.generate(width, height);
-            MazeToArr(newMazeGenerate);
-            Position UpdatePos = new Position(1, 1);
-            UpdatePos = newMazeGenerate.getStartPosition();
-            characterPositionColumn = UpdatePos.getColumnIndex();
-            characterPositionRow = UpdatePos.getRowIndex();
-            setChanged();
-            notifyObservers();
+        solved=false;
+        MyMazeGenerator newMaze = new MyMazeGenerator();
+        Maze newMazeGenerate = newMaze.generate(width, height);
+        MazeToArr(newMazeGenerate);
+        Position UpdatePos = new Position(1, 1);
+        UpdatePos = newMazeGenerate.getStartPosition();
+        characterPositionColumn = UpdatePos.getColumnIndex();
+        characterPositionRow = UpdatePos.getRowIndex();
+        setChanged();
+        notifyObservers();
         return maze;
     }
 
@@ -100,6 +100,11 @@ public class MyModel extends Observable implements IModel {
         return maze;
     }
 
+    public boolean isSolved() {
+        return this.solved;
+    }
+
+
     public void setCharacterPosition(int row, int column) {
         characterPositionRow = row;
         characterPositionColumn = column;
@@ -110,6 +115,7 @@ public class MyModel extends Observable implements IModel {
         Solution keepSolution = new Solution();
         keepSolution.getSolutionPath();
         solve = keepSolution;
+        solved=true;
         setChanged();
         notifyObservers();
         return solve;

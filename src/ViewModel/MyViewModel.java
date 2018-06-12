@@ -60,7 +60,11 @@ public class MyViewModel extends Observable implements Observer {
         return characterPositionColumnIndex;
     }
 
-    public Solution getSolution(){
+    public Solution getSolution() {
         return model.generateSolution();
+    }
+
+    public boolean isSolved() {
+        return model.isSolved();
     }
 }

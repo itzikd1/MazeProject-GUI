@@ -5,10 +5,17 @@ import javafx.scene.input.KeyCode;
 
 public interface IModel {
 
-    int [][] generateMaze(int width,int height);
+    int[][] generateMaze(int width, int height);
+
     void moveCharacter(KeyCode movement);
+
     int[][] getMaze();
+
     Solution generateSolution();
+
+    boolean isSolved();
+
     int getCharacterPositionRow();
+
     int getCharacterPositionColumn();
 }

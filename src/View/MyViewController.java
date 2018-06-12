@@ -37,8 +37,8 @@ public class MyViewController implements Observer, IView {
     }
 
     private void bindProperties(MyViewModel viewModel) {
-//        lbl_rowsNum.textProperty().bind(viewModel.characterPositionRow);
-//        lbl_columnsNum.textProperty().bind(viewModel.characterPositionColumn);
+        lbl_rowsNum.textProperty().bind(viewModel.characterPositionRow);
+        lbl_columnsNum.textProperty().bind(viewModel.characterPositionColumn);
     }
 
     @Override
@@ -68,14 +68,12 @@ public class MyViewController implements Observer, IView {
         int width;
         try {
             heigth = Integer.valueOf(txt_row.getText());
-        }
-        catch (Exception e) {
-            heigth=10;
+        } catch (Exception e) {
+            heigth = 10;
         }
         try {
             width = Integer.valueOf(txt_col.getText());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             width = 10;
         }
         int[][] temp = viewModel.generateMaze(width, heigth);
@@ -85,6 +83,10 @@ public class MyViewController implements Observer, IView {
 
     public void solveMaze(ActionEvent actionEvent) {
         showAlert("Solving maze..");
+        System.out.println(viewModel.isSolved());
+        viewModel.getSolution();
+        System.out.println(viewModel.isSolved());
+
     }
 
     private void showAlert(String alertMessage) {
