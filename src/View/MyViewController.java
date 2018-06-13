@@ -130,6 +130,14 @@ public class MyViewController implements Observer, IView {
         return characterPositionColumn;
     }
 
+    public double prefWidth(double height) {
+        return 0;
+    }
+
+    public double prefHeight(double width) {
+        return 0;
+    }
+
     public void setResizeEvent(Scene scene) {
         scene.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
