@@ -92,4 +92,8 @@ public class MyViewModel extends Observable implements Observer {
     public void setMaze(int [][] maze){
         model.setMaze(maze);
     }
+
+    public int[][] getMazeSolutionArr(){
+        return model.getMazeSolutionArr();
+    }
 }

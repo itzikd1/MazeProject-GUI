@@ -12,6 +12,8 @@ public interface IModel {
 
     int[][] getMaze();
 
+    int[][] getMazeSolutionArr();
+
     Solution generateSolution();
 
     boolean isSolved();

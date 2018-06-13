@@ -1,6 +1,7 @@
 package View;
 
 import Model.MyModel;
+import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
@@ -31,6 +32,7 @@ public class MazeDisplay extends Canvas {
     private int characterPositionColumn;
     private Position endposition;
     private int[][] solved;
+    private boolean isSolved;
 
     public void setMaze(int[][] maze) {
         this.maze = maze;
@@ -77,11 +79,13 @@ public class MazeDisplay extends Canvas {
                 graphicsContext2D.drawImage(endPos, endposition.getColumnIndex() * cellHeight, endposition.getRowIndex()* cellWidth, cellHeight, cellWidth);
 
                 //Draw solution
-                Image SolutionImage = new Image(new FileInputStream("resources/images/2.png"));
-                for (int i = 0; i < solved.length; i++) {
-                    int x= solved[0][i];
-                    int y = solved[1][i];
-                    graphicsContext2D.drawImage(SolutionImage, x * cellHeight, y * cellWidth, cellHeight, cellWidth);
+                if (isSolved==true) {
+                    Image SolutionImage = new Image(new FileInputStream("resources/images/2.png"));
+                    for (int i = 0; i < solved[0].length; i++) {
+                        int x = solved[0][i];
+                        int y = solved[1][i];
+                        graphicsContext2D.drawImage(SolutionImage, y * cellHeight, x * cellWidth, cellHeight, cellWidth);
+                    }
                 }
 
 
@@ -118,6 +122,11 @@ public class MazeDisplay extends Canvas {
 
     public void setImageFileNameCharacter(String imageFileNameCharacter) {
         this.ImageFileNameCharacter.set(imageFileNameCharacter);
+    }
+
+    public void isSolved(boolean solved) {
+        this.isSolved=solved;
+
     }
     //endregion
 
