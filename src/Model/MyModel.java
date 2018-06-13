@@ -3,10 +3,11 @@ package Model;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.mazeGenerators.Position;
-import algorithms.search.Solution;
+import algorithms.search.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -16,6 +17,7 @@ responsible for all the function part
  */
 public class MyModel extends Observable implements IModel {
     private int[][] maze;
+    private Maze Original;
     private Solution solve;
     private boolean solved;
     private boolean gameFinsih;
@@ -23,7 +25,7 @@ public class MyModel extends Observable implements IModel {
     private int characterPositionColumn;
     private Position endposition;
     private int[][] mazeSolutionArr;
-    private KeyEvent keyEvent;
+//    private KeyEvent keyEvent;
     private ExecutorService threadPool = Executors.newCachedThreadPool();
 
 
@@ -62,6 +64,7 @@ public class MyModel extends Observable implements IModel {
         MazeToArr(newMazeGenerate);
         Position UpdatePos = new Position(1, 1);
         UpdatePos = newMazeGenerate.getStartPosition();
+        this.Original=newMazeGenerate;
         characterPositionColumn = UpdatePos.getColumnIndex();
         characterPositionRow = UpdatePos.getRowIndex();
         endposition = newMazeGenerate.getGoalPosition();
@@ -153,10 +156,19 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public Solution generateSolution() {
-        Solution keepSolution = new Solution();
-        keepSolution.getSolutionPath();
+        SearchableMaze MazeToSolve = new SearchableMaze(Original);
+        BreadthFirstSearch bfs = new BreadthFirstSearch();
+        Solution keepSolution = bfs.solve(MazeToSolve);
+        ArrayList<AState> solutionPath = keepSolution.getSolutionPath();
         solve = keepSolution;
         solved = true;
+        for (int i = 0; i < solutionPath.size(); i++) {
+            System.out.println(String.format("%s. %s", i, solutionPath.get(i)));
+        }
+        for (int i = 0; i < solutionPath.size(); i++) {
+            System.out.println(((MazeState)(solutionPath.get(i))).getCol());
+        }
+        mazeSolutionArr = new
         setChanged();
         notifyObservers();
         return solve;

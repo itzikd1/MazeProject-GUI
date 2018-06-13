@@ -74,7 +74,7 @@
                 </GridPane>
                 <AnchorPane prefHeight="245.0">
                     <children>
-                        <Button fx:id="SolveMaze" disable="true" layoutX="4.0" layoutY="46.0" mnemonicParsing="false" onAction="#solveMaze" prefHeight="25.0" prefWidth="132.0" text="Solve Maze" />
+                        <Button fx:id="SolveMaze" layoutX="4.0" layoutY="46.0" mnemonicParsing="false" onAction="#solveMaze" prefHeight="25.0" prefWidth="132.0" text="Solve Maze" />
                         <Button fx:id="GenerateMaze" defaultButton="true" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#generateMaze" prefHeight="25.0" prefWidth="118.0" text="Generate Maze" />
                         <Button fx:id="save" layoutX="10.0" layoutY="169.0" mnemonicParsing="false" onAction="#saveGame" text="Save Game" />
                         <Button fx:id="load" layoutX="9.0" layoutY="206.0" mnemonicParsing="false" onAction="#loadGame" text="Load Game" />
