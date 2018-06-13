@@ -62,7 +62,7 @@ public class MazeDisplay extends Canvas {
             try {
                 GraphicsContext graphicsContext2D = getGraphicsContext2D();
                 graphicsContext2D.clearRect(0, 0, getWidth(), getHeight()); //Clears the canvas
-                Image wallImage = new Image(new FileInputStream("resources/images/11.jpg"));
+                Image wallImage = new Image(new FileInputStream("resources/images/wall.jpg"));
 
                 //Draw Maze
                 for (int i = 0; i < maze.length; i++) {
@@ -75,12 +75,12 @@ public class MazeDisplay extends Canvas {
                 }
 
                 //draw end point
-                Image endPos = new Image(new FileInputStream("resources/images/2.png"));
+                Image endPos = new Image(new FileInputStream("resources/images/end.jpg"));
                 graphicsContext2D.drawImage(endPos, endposition.getColumnIndex() * cellHeight, endposition.getRowIndex()* cellWidth, cellHeight, cellWidth);
 
                 //Draw solution
                 if (isSolved==true) {
-                    Image SolutionImage = new Image(new FileInputStream("resources/images/2.png"));
+                    Image SolutionImage = new Image(new FileInputStream("resources/images/eat.png"));
                     for (int i = 0; i < solved[0].length; i++) {
                         int x = solved[0][i];
                         int y = solved[1][i];
@@ -94,7 +94,7 @@ public class MazeDisplay extends Canvas {
                 //Draw Character
                 //gc.setFill(Color.RED);
                 //gc.fillOval(characterPositionColumn * cellHeight, characterPositionRow * cellWidth, cellHeight, cellWidth);
-                Image characterImage = new Image(new FileInputStream("resources/images/2.png"));
+                Image characterImage = new Image(new FileInputStream("resources/images/char.png"));
                 graphicsContext2D.drawImage(characterImage, characterPositionColumn * cellHeight, characterPositionRow * cellWidth, cellHeight, cellWidth);
             } catch (FileNotFoundException e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
