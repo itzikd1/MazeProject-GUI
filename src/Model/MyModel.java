@@ -50,7 +50,7 @@ public class MyModel extends Observable implements IModel {
         maze = new int[m.numOfRows()][m.numOfColumns()];
         for (int i = 0; i < m.numOfRows(); i++)
             for (int j = 0; j < m.numOfColumns(); j++)
-                maze[i][j] = m.getCellValue(i, j); //TODO rannan check if this is good rows\col
+                maze[i][j] = m.getCellValue(i, j);
     }
 
     @Override

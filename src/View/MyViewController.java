@@ -51,7 +51,7 @@ public class MyViewController implements Observer, IView {
 //            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(), viewModel.getCharacterPositionColumn());
             displayMaze(viewModel.getMaze());
             GenerateMaze.setDisable(false);
-            if(viewModel.gameFinsih()==true) {
+            if (viewModel.gameFinsih() == true) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText(String.format("Game Done"));
                 alert.show();
@@ -129,18 +129,16 @@ public class MyViewController implements Observer, IView {
     }
 
     public void setResizeEvent(Scene scene) {
-        long width = 0;
-        long height = 0;
         scene.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-                System.out.println("Width: " + newSceneWidth);
+                mazeDisplayer.redraw();
             }
         });
         scene.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
-                System.out.println("Height: " + newSceneHeight);
+                mazeDisplayer.redraw();
             }
         });
     }
@@ -151,7 +149,7 @@ public class MyViewController implements Observer, IView {
             stage.setTitle("AboutController");
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource("About.fxml").openStream());
-            Scene scene = new Scene(root, 400, 350);
+            Scene scene = new Scene(root, 300, 165);
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
             stage.show();
@@ -189,8 +187,9 @@ public class MyViewController implements Observer, IView {
         //endregion
 
     }
-    public void loadGame(){
-        try{
+
+    public void loadGame() {
+        try {
             FileInputStream fi = new FileInputStream(new File("myObjects.txt"));
             ObjectInputStream oi = new ObjectInputStream(fi);
 
