@@ -83,8 +83,6 @@ public class MyViewModel extends Observable implements Observer {
     public void setCharacterPositionRow(int row) {
         characterPositionRowIndex=row;
         model.setCharacterPositionRow(row);
-
-
     }
 
 

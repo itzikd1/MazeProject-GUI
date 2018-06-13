@@ -65,7 +65,7 @@ public class MyModel extends Observable implements IModel {
         characterPositionColumn = UpdatePos.getColumnIndex();
         characterPositionRow = UpdatePos.getRowIndex();
         endposition = newMazeGenerate.getGoalPosition();
-        gameFinsih=false;
+        gameFinsih = false;
         setChanged();
         notifyObservers();
         return maze;
@@ -129,8 +129,8 @@ public class MyModel extends Observable implements IModel {
                     }
                 break;
         }
-        if (endposition.getColumnIndex() == getCharacterPositionColumn() && endposition.getRowIndex()==getCharacterPositionRow())
-            gameFinsih=true;
+        if (endposition.getColumnIndex() == getCharacterPositionColumn() && endposition.getRowIndex() == getCharacterPositionRow())
+            gameFinsih = true;
         setChanged();
         notifyObservers();
 
@@ -146,10 +146,10 @@ public class MyModel extends Observable implements IModel {
     }
 
 
-    public void setCharacterPosition(int row, int column) {
-        characterPositionRow = row;
-        characterPositionColumn = column;
-    }
+//    public void setCharacterPosition(int row, int column) {
+//        characterPositionRow = row;
+//        characterPositionColumn = column;
+//    }
 
     @Override
     public Solution generateSolution() {
@@ -167,16 +167,16 @@ public class MyModel extends Observable implements IModel {
     }
 
 
-    public void setCharacterPositionRow(int row){
-        this.characterPositionRow=row;
+    public void setCharacterPositionRow(int row) {
+        this.characterPositionRow = row;
     }
 
     @Override
     public void setMaze(int[][] maze) {
-        this.maze=maze;
+        this.maze = maze;
     }
 
-    public void setCharacterPositionCol(int col){
-        this.characterPositionColumn=col;
+    public void setCharacterPositionCol(int col) {
+        this.characterPositionColumn = col;
     }
 }
