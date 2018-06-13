@@ -72,7 +72,7 @@ public class MyModel extends Observable implements IModel {
     }
 
     private boolean isNotLegalMove(int x, int y) {
-        if (x < 0 || y < 0 || x > maze.length - 1 || y > maze.length - 1)
+        if (x < 0 || y < 0 || x > maze.length - 1 || y > maze[0].length - 1)
             return true;
         if (maze[x][y] == 1)
             return true;
@@ -164,5 +164,19 @@ public class MyModel extends Observable implements IModel {
 
     public int[][] getMazeSolutionArr() {
         return mazeSolutionArr;
+    }
+
+
+    public void setCharacterPositionRow(int row){
+        this.characterPositionRow=row;
+    }
+
+    @Override
+    public void setMaze(int[][] maze) {
+        this.maze=maze;
+    }
+
+    public void setCharacterPositionCol(int col){
+        this.characterPositionColumn=col;
     }
 }

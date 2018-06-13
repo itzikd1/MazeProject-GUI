@@ -23,4 +23,10 @@ public interface IModel {
     Position getEndpositionl();
 
     boolean gameFinsih();
+
+    void setCharacterPositionCol(int col);
+
+    void setCharacterPositionRow(int row);
+
+    void setMaze(int[][] maze);
 }
