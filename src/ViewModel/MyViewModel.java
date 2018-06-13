@@ -67,4 +67,22 @@ public class MyViewModel extends Observable implements Observer {
     public boolean isSolved() {
         return model.isSolved();
     }
+
+
+    public void setCharacterPositionRow(int row) {
+        characterPositionRowIndex=row;
+        model.setCharacterPositionRow(row);
+
+
+    }
+
+
+    public void setCharacterPositionColumn(int col) {
+        characterPositionColumnIndex=col;
+        model.setCharacterPositionCol(col);
+    }
+    public void setMaze(int [][] maze){
+        model.setMaze(maze);
+    }
+
 }

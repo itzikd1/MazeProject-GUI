@@ -1,5 +1,11 @@
 package View;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import Model.MyModel;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
@@ -153,6 +159,60 @@ public class MyViewController implements Observer, IView {
         }
     }
 
-    //endregion
+    public void saveGame() {
+        int[][] currentMaze = viewModel.getMaze();
+        int x1 = viewModel.getCharacterPositionRow();
+        int y1 = viewModel.getCharacterPositionColumn();
 
+
+        try {
+            FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
+            ObjectOutputStream o = new ObjectOutputStream(f);
+
+            // Write objects to file
+            o.writeObject(currentMaze);
+            o.writeObject(x1);
+            o.writeObject(y1);
+            o.close();
+            f.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        //endregion
+
+    }
+    public void loadGame(){
+        try{
+            FileInputStream fi = new FileInputStream(new File("myObjects.txt"));
+            ObjectInputStream oi = new ObjectInputStream(fi);
+
+            // Read objects
+
+            int[][] currentMaze = (int[][]) oi.readObject();
+            int x1 = (int) oi.readObject();
+            int y1 = (int) oi.readObject();
+            viewModel.setCharacterPositionRow(x1);
+            viewModel.setCharacterPositionColumn(y1);
+            viewModel.setMaze(currentMaze);
+            oi.close();
+            fi.close();
+            mazeDisplayer.setMaze(currentMaze);
+            displayMaze(currentMaze);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
 }

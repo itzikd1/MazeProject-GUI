@@ -18,4 +18,10 @@ public interface IModel {
     int getCharacterPositionRow();
 
     int getCharacterPositionColumn();
+
+    void setMaze(int [][] maze);
+
+    void setCharacterPositionRow(int row);
+
+    void setCharacterPositionCol(int col);
 }

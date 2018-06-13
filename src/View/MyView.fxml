@@ -72,6 +72,8 @@
                <children>
                   <Button fx:id="SolveMaze" layoutX="4.0" layoutY="46.0" mnemonicParsing="false" onAction="#solveMaze" prefHeight="25.0" prefWidth="132.0" text="Solve Maze" />
                   <Button fx:id="GenerateMaze" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#generateMaze" prefHeight="25.0" prefWidth="118.0" text="Generate Maze" />
+                  <Button fx:id="save" layoutX="31.0" layoutY="80.0" mnemonicParsing="false" onAction="#saveGame" text="Save Game" />
+                  <Button fx:id="load" layoutX="42.0" layoutY="123.0" mnemonicParsing="false" onAction="#loadGame" text="Load Game" />
                </children>
             </AnchorPane>
          </children>
