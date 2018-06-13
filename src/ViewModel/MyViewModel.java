@@ -1,6 +1,8 @@
 package ViewModel;
 
 import Model.IModel;
+import Model.MyModel;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -12,7 +14,7 @@ import javafx.scene.input.KeyCode;
 import java.util.Observable;
 import java.util.Observer;
 
-
+//TODO fix generate maze, so end position not on wall (3X3 size)
 public class MyViewModel extends Observable implements Observer {
 
     private IModel model;
@@ -44,8 +46,17 @@ public class MyViewModel extends Observable implements Observer {
 
     }
 
+    public Position getendposition() {
+        return model.getEndpositionl();
+
+    }
+
     public void moveCharacter(KeyCode movement) {
         model.moveCharacter(movement);
+    }
+
+    public boolean gameFinsih (){
+       return model.gameFinsih();
     }
 
     public int[][] getMaze() {

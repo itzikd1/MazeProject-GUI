@@ -1,6 +1,7 @@
 package View;
 
 import Model.MyModel;
+import algorithms.mazeGenerators.Position;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.EventHandler;
@@ -27,19 +28,16 @@ public class MazeDisplay extends Canvas {
     private int[][] maze;
     private int characterPositionRow;
     private int characterPositionColumn;
-
-
-    public int getCharacterPositionRow() {
-        return characterPositionRow;
-    }
-
-    public int getCharacterPositionColumn() {
-        return characterPositionColumn;
-    }
+    private Position endposition;
 
     public void setMaze(int[][] maze) {
         this.maze = maze;
     }
+
+    public void endposition(algorithms.mazeGenerators.Position end){
+        endposition = end;
+    }
+
 
     public void setCharacterPosition(int row, int column) {
         characterPositionRow = row;
@@ -56,7 +54,7 @@ public class MazeDisplay extends Canvas {
             try {
                 GraphicsContext graphicsContext2D = getGraphicsContext2D();
                 graphicsContext2D.clearRect(0, 0, getWidth(), getHeight()); //Clears the canvas
-                Image wallImage = new Image(new FileInputStream("resources/images/1.jpg"));
+                Image wallImage = new Image(new FileInputStream("resources/images/11.jpg"));
 
                 //Draw Maze
                 for (int i = 0; i < maze.length; i++) {
@@ -67,6 +65,10 @@ public class MazeDisplay extends Canvas {
                         }
                     }
                 }
+
+                //draw end point
+                Image endPos = new Image(new FileInputStream("resources/images/3.jpg"));
+                graphicsContext2D.drawImage(endPos, endposition.getColumnIndex() * cellHeight, endposition.getRowIndex()* cellWidth, cellHeight, cellWidth);
 
 //                //Draw solution
 //                for (int i = 0; i < maze.length; i++) {

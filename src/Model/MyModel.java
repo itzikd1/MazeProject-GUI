@@ -18,8 +18,10 @@ public class MyModel extends Observable implements IModel {
     private int[][] maze;
     private Solution solve;
     private boolean solved;
+    private boolean gameFinsih;
     private int characterPositionRow;
     private int characterPositionColumn;
+    private Position endposition;
     private int[][] mazeSolutionArr;
     private KeyEvent keyEvent;
     private ExecutorService threadPool = Executors.newCachedThreadPool();
@@ -31,6 +33,15 @@ public class MyModel extends Observable implements IModel {
 
     public int getCharacterPositionColumn() {
         return characterPositionColumn;
+    }
+
+    public Position getEndpositionl() {
+        return endposition;
+    }
+
+    @Override
+    public boolean gameFinsih() {
+        return gameFinsih;
     }
 
     public void MazeToArr(Maze m) { //TODO from int to byte
@@ -53,6 +64,8 @@ public class MyModel extends Observable implements IModel {
         UpdatePos = newMazeGenerate.getStartPosition();
         characterPositionColumn = UpdatePos.getColumnIndex();
         characterPositionRow = UpdatePos.getRowIndex();
+        endposition = newMazeGenerate.getGoalPosition();
+        gameFinsih=false;
         setChanged();
         notifyObservers();
         return maze;
@@ -116,6 +129,8 @@ public class MyModel extends Observable implements IModel {
                     }
                 break;
         }
+        if (endposition.getColumnIndex() == getCharacterPositionColumn() && endposition.getRowIndex()==getCharacterPositionRow())
+            gameFinsih=true;
         setChanged();
         notifyObservers();
 

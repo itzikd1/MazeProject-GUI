@@ -50,7 +50,11 @@ public class MyViewController implements Observer, IView {
 //            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(), viewModel.getCharacterPositionColumn());
             displayMaze(viewModel.getMaze());
             GenerateMaze.setDisable(false);
-
+            if(viewModel.gameFinsih()==true) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText(String.format("Game Done"));
+                alert.show();
+            }
             //mazeDisplayer.setCharacterPosition(mazeDisplayer.getCharacterPositionRow(),mazeDisplayer.getCharacterPositionColumn());
             mazeDisplayer.redraw();
         }
@@ -61,6 +65,7 @@ public class MyViewController implements Observer, IView {
         int characterPositionRow = viewModel.getCharacterPositionRow();
         int characterPositionColumn = viewModel.getCharacterPositionColumn();
         mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
+        mazeDisplayer.endposition(viewModel.getendposition());
         this.characterPositionRow.set(characterPositionRow + "");
         this.characterPositionColumn.set(characterPositionColumn + "");
         mazeDisplayer.redraw();
@@ -81,6 +86,7 @@ public class MyViewController implements Observer, IView {
         }
         int[][] temp = viewModel.generateMaze(width, heigth);
         mazeDisplayer.setMaze(temp);
+        mazeDisplayer.endposition(viewModel.getendposition());
         displayMaze(temp);
     }
 
