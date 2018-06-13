@@ -79,14 +79,10 @@ public class MyViewModel extends Observable implements Observer {
         return model.isSolved();
     }
 
-
     public void setCharacterPositionRow(int row) {
         characterPositionRowIndex=row;
         model.setCharacterPositionRow(row);
-
-
     }
-
 
     public void setCharacterPositionColumn(int col) {
         characterPositionColumnIndex=col;
