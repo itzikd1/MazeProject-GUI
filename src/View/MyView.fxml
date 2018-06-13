@@ -21,17 +21,21 @@
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" text="New Maze" />
+                  <MenuItem mnemonicParsing="false" text="Save Maze" />
+                  <MenuItem mnemonicParsing="false" text="Load Maze" />
+                  <MenuItem mnemonicParsing="false" text="Close" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
+                <Menu mnemonicParsing="false" text="Options">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
+                        <MenuItem mnemonicParsing="false" text="Properties" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
+                        <MenuItem mnemonicParsing="false" text="Help" />
+                  <MenuItem mnemonicParsing="false" onAction="#About" text="About" />
                     </items>
                 </Menu>
             </menus>
@@ -59,8 +63,8 @@
                             <children>
                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Row" translateX="6.0" translateY="5.0" translateZ="24.0" />
                             </children></VBox>
-                        <TextField fx:id="txt_col" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="txt_row" GridPane.columnIndex="1" />
+                        <TextField fx:id="txt_col" text="10" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="txt_row" text="10" GridPane.columnIndex="1" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Col" translateX="8.0" GridPane.rowIndex="1" />
                         <Label fx:id="lbl_rowsNum" text="Row" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label fx:id="lbl_columnsNum" text="Col" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -70,10 +74,10 @@
                 </GridPane>
                 <AnchorPane prefHeight="245.0">
                     <children>
-                        <Button fx:id="SolveMaze" layoutX="4.0" layoutY="46.0" mnemonicParsing="false" onAction="#solveMaze" prefHeight="25.0" prefWidth="132.0" text="Solve Maze" />
-                        <Button fx:id="GenerateMaze" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#generateMaze" prefHeight="25.0" prefWidth="118.0" text="Generate Maze" />
-                        <Button fx:id="save" layoutX="31.0" layoutY="80.0" mnemonicParsing="false" onAction="#saveGame" text="Save Game" />
-                        <Button fx:id="load" layoutX="42.0" layoutY="123.0" mnemonicParsing="false" onAction="#loadGame" text="Load Game" />
+                        <Button fx:id="SolveMaze" disable="true" layoutX="4.0" layoutY="46.0" mnemonicParsing="false" onAction="#solveMaze" prefHeight="25.0" prefWidth="132.0" text="Solve Maze" />
+                        <Button fx:id="GenerateMaze" defaultButton="true" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#generateMaze" prefHeight="25.0" prefWidth="118.0" text="Generate Maze" />
+                        <Button fx:id="save" layoutX="10.0" layoutY="169.0" mnemonicParsing="false" onAction="#saveGame" text="Save Game" />
+                        <Button fx:id="load" layoutX="9.0" layoutY="206.0" mnemonicParsing="false" onAction="#loadGame" text="Load Game" />
                     </children>
                 </AnchorPane>
             </children>
