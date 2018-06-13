@@ -2,6 +2,7 @@ package View;
 
 import Model.MyModel;
 import algorithms.mazeGenerators.Position;
+import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.EventHandler;
@@ -29,6 +30,7 @@ public class MazeDisplay extends Canvas {
     private int characterPositionRow;
     private int characterPositionColumn;
     private Position endposition;
+    private int[][] solved;
 
     public void setMaze(int[][] maze) {
         this.maze = maze;
@@ -36,6 +38,10 @@ public class MazeDisplay extends Canvas {
 
     public void endposition(algorithms.mazeGenerators.Position end){
         endposition = end;
+    }
+
+    public void Solved(int[][] answer){
+        solved = answer;
     }
 
 
@@ -69,6 +75,17 @@ public class MazeDisplay extends Canvas {
                 //draw end point
                 Image endPos = new Image(new FileInputStream("resources/images/2.png"));
                 graphicsContext2D.drawImage(endPos, endposition.getColumnIndex() * cellHeight, endposition.getRowIndex()* cellWidth, cellHeight, cellWidth);
+
+                //Draw solution
+                Image SolutionImage = new Image(new FileInputStream("resources/images/2.png"));
+                for (int i = 0; i < solved.length; i++) {
+                    int x= solved[0][i];
+                    int y = solved[1][i];
+                    graphicsContext2D.drawImage(SolutionImage, x * cellHeight, y * cellWidth, cellHeight, cellWidth);
+                }
+
+
+
 
                 //Draw Character
                 //gc.setFill(Color.RED);
