@@ -1,11 +1,5 @@
 package View;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 import Model.MyModel;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
@@ -23,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.*;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -56,7 +51,11 @@ public class MyViewController implements Observer, IView {
 //            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(), viewModel.getCharacterPositionColumn());
             displayMaze(viewModel.getMaze());
             GenerateMaze.setDisable(false);
-
+            if(viewModel.gameFinsih()==true) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText(String.format("Game Done"));
+                alert.show();
+            }
             //mazeDisplayer.setCharacterPosition(mazeDisplayer.getCharacterPositionRow(),mazeDisplayer.getCharacterPositionColumn());
             mazeDisplayer.redraw();
         }
@@ -67,6 +66,7 @@ public class MyViewController implements Observer, IView {
         int characterPositionRow = viewModel.getCharacterPositionRow();
         int characterPositionColumn = viewModel.getCharacterPositionColumn();
         mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
+        mazeDisplayer.endposition(viewModel.getendposition());
         this.characterPositionRow.set(characterPositionRow + "");
         this.characterPositionColumn.set(characterPositionColumn + "");
         mazeDisplayer.redraw();
@@ -87,6 +87,7 @@ public class MyViewController implements Observer, IView {
         }
         int[][] temp = viewModel.generateMaze(width, heigth);
         mazeDisplayer.setMaze(temp);
+        mazeDisplayer.endposition(viewModel.getendposition());
         displayMaze(temp);
     }
 
@@ -159,6 +160,7 @@ public class MyViewController implements Observer, IView {
         }
     }
 
+
     public void saveGame() {
         int[][] currentMaze = viewModel.getMaze();
         int x1 = viewModel.getCharacterPositionRow();
@@ -215,4 +217,6 @@ public class MyViewController implements Observer, IView {
         }
 
     }
+    //endregion
+
 }

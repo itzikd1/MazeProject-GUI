@@ -18,8 +18,10 @@ public class MyModel extends Observable implements IModel {
     private int[][] maze;
     private Solution solve;
     private boolean solved;
+    private boolean gameFinsih;
     private int characterPositionRow;
     private int characterPositionColumn;
+    private Position endposition;
     private int[][] mazeSolutionArr;
     private KeyEvent keyEvent;
     private ExecutorService threadPool = Executors.newCachedThreadPool();
@@ -31,6 +33,15 @@ public class MyModel extends Observable implements IModel {
 
     public int getCharacterPositionColumn() {
         return characterPositionColumn;
+    }
+
+    public Position getEndpositionl() {
+        return endposition;
+    }
+
+    @Override
+    public boolean gameFinsih() {
+        return gameFinsih;
     }
 
     public void MazeToArr(Maze m) { //TODO from int to byte
@@ -53,6 +64,8 @@ public class MyModel extends Observable implements IModel {
         UpdatePos = newMazeGenerate.getStartPosition();
         characterPositionColumn = UpdatePos.getColumnIndex();
         characterPositionRow = UpdatePos.getRowIndex();
+        endposition = newMazeGenerate.getGoalPosition();
+        gameFinsih=false;
         setChanged();
         notifyObservers();
         return maze;
@@ -115,25 +128,9 @@ public class MyModel extends Observable implements IModel {
                         characterPositionRow--;
                     }
                 break;
-
-            case W:
-                if (isNotLegalMove(x, y - 1) == false)
-                    characterPositionRow--;
-                break;
-            case S:
-                if (isNotLegalMove(x, y + 1) == false)
-                    characterPositionRow++;
-                break;
-            case D:
-                if (isNotLegalMove(x + 1, y) == false)
-                    characterPositionColumn++;
-                break;
-            case A:
-                if (isNotLegalMove(x - 1, y) == false)
-                    characterPositionColumn--;
-                break;
-
         }
+        if (endposition.getColumnIndex() == getCharacterPositionColumn() && endposition.getRowIndex()==getCharacterPositionRow())
+            gameFinsih=true;
         setChanged();
         notifyObservers();
 
@@ -169,13 +166,16 @@ public class MyModel extends Observable implements IModel {
         return mazeSolutionArr;
     }
 
-    public void setMaze(int [][] maze){
-        this.maze=maze;
-    }
 
     public void setCharacterPositionRow(int row){
         this.characterPositionRow=row;
     }
+
+    @Override
+    public void setMaze(int[][] maze) {
+        this.maze=maze;
+    }
+
     public void setCharacterPositionCol(int col){
         this.characterPositionColumn=col;
     }
