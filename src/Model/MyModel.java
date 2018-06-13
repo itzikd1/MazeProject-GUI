@@ -47,9 +47,9 @@ public class MyModel extends Observable implements IModel {
     public void MazeToArr(Maze m) { //TODO from int to byte
         int row = m.numOfRows();
         int col = m.numOfColumns();
-        maze = new int[m.numOfRows()][m.numOfColumns()];
-        for (int i = 0; i < m.numOfRows(); i++)
-            for (int j = 0; j < m.numOfColumns(); j++)
+        maze = new int[row][col];
+        for (int i = 0; i < row; i++)
+            for (int j = 0; j < col; j++)
                 maze[i][j] = m.getCellValue(i, j);
     }
 
@@ -65,6 +65,7 @@ public class MyModel extends Observable implements IModel {
         characterPositionColumn = UpdatePos.getColumnIndex();
         characterPositionRow = UpdatePos.getRowIndex();
         endposition = newMazeGenerate.getGoalPosition();
+        System.out.println(endposition);
         gameFinsih = false;
         setChanged();
         notifyObservers();

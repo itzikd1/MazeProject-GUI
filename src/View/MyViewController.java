@@ -85,7 +85,7 @@ public class MyViewController implements Observer, IView {
         } catch (Exception e) {
             width = 10;
         }
-        int[][] temp = viewModel.generateMaze(width, heigth);
+        int[][] temp = viewModel.generateMaze(heigth, width);
         mazeDisplayer.setMaze(temp);
         mazeDisplayer.endposition(viewModel.getendposition());
         displayMaze(temp);
