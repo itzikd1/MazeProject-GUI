@@ -1,111 +1,70 @@
 package ViewModel;
-import View.MyViewController;
+
+import Model.IModel;
+import algorithms.search.Solution;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
-import java.net.URL;
-import java.util.Random;
-import java.util.ResourceBundle;
-
-public class MyViewModel{
-
-    @FXML
-    public MyViewController mazeDisplayer;
-    public javafx.scene.control.TextField txtfld_rowsNum;
-    public javafx.scene.control.TextField txtfld_columnsNum;
-    public Label lbl_characterRow;
-    public Label lbl_characterColumn;
+import java.util.Observable;
+import java.util.Observer;
 
 
-    int[][] mazeData = { // a stub...
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1},
-            {0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1},
-            {1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1},
-            {1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1},
-            {1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1},
-            {1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1},
-            {1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1},
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1}
-    };
+public class MyViewModel extends Observable implements Observer {
 
+    private IModel model;
 
-    public int[][] getNewMaze(int width, int height) {
-        Random rand = new Random();
-        int[][] newMaze = new int[width][height];
-        for (int i = 0; i < newMaze.length; i++) {
-            for (int j = 0; j < newMaze[i].length; j++) {
-                newMaze[i][j] = Math.abs(rand.nextInt() % 2);
-            }
-        }
-        return newMaze;
+    private int characterPositionRowIndex = 0;
+    private int characterPositionColumnIndex = 0;
+
+    public StringProperty characterPositionRow = new SimpleStringProperty("1"); //For Binding
+    public StringProperty characterPositionColumn = new SimpleStringProperty("1"); //For Binding
+
+    public MyViewModel(IModel model) {
+        this.model = model;
     }
 
-    public void generateMaze() {
-        int rows = Integer.valueOf(txtfld_rowsNum.getText());
-        int columns = Integer.valueOf(txtfld_columnsNum.getText());
-        this.mazeDisplayer.setMaze(rows,columns);
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o == model) {
+            characterPositionRowIndex = model.getCharacterPositionRow();
+            characterPositionRow.set(characterPositionRowIndex + "");
+            characterPositionColumnIndex = model.getCharacterPositionColumn();
+            characterPositionColumn.set(characterPositionColumnIndex + "");
+            setChanged();
+            notifyObservers();
+        }
+    }
+
+    public int[][] generateMaze(int width, int height) {
+        return model.generateMaze(width, height);
 
     }
 
-    private void showAlert(String alertMessage) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText(alertMessage);
-        alert.show();
+    public void moveCharacter(KeyCode movement) {
+        model.moveCharacter(movement);
     }
 
-    public void solveMaze(ActionEvent actionEvent) {
-        showAlert("Solving maze..");
+    public int[][] getMaze() {
+        return model.getMaze();
     }
 
-    public void KeyPressed(KeyEvent keyEvent) {
-        int characterRow = mazeDisplayer.getCharacterPositionRow();
-        int characterColumn = mazeDisplayer.getCharacterPositionColumn();
-        int characterRowNewPosition = characterRow;
-        int characterColumnNewPosition = characterColumn;
-
-        if (keyEvent.getCode() == KeyCode.UP) {
-            characterRowNewPosition = characterRow - 1;
-            characterColumnNewPosition = characterColumn;
-        }
-        else if (keyEvent.getCode() == KeyCode.DOWN) {
-            characterRowNewPosition = characterRow + 1;
-            characterColumnNewPosition = characterColumn;
-        }
-        else if (keyEvent.getCode() == KeyCode.RIGHT) {
-            characterRowNewPosition = characterRow;
-            characterColumnNewPosition = characterColumn+1;
-        }
-        else if (keyEvent.getCode() == KeyCode.LEFT) {
-            characterRowNewPosition = characterRow;
-            characterColumnNewPosition = characterColumn -1;
-        }
-        else if (keyEvent.getCode() == KeyCode.HOME){
-            characterRowNewPosition = 0;
-            characterColumnNewPosition = 0;
-        }
-
-        //Updates the MazeDisplayer
-        mazeDisplayer.setCharacterPosition(characterRowNewPosition, characterColumnNewPosition);
-
-        //Updates the labels
-        CharacterRow.set(String.valueOf(mazeDisplayer.getCharacterPositionRow()));
-        CharacterColumn.set(String.valueOf(mazeDisplayer.getCharacterPositionColumn()));
-        keyEvent.consume();
+    public int getCharacterPositionRow() {
+        return characterPositionRowIndex;
     }
 
-    //region String Property for Binding
-    public StringProperty CharacterRow = new SimpleStringProperty();
-    public StringProperty CharacterColumn = new SimpleStringProperty();
+    public int getCharacterPositionColumn() {
+        return characterPositionColumnIndex;
+    }
 
+    public Solution getSolution() {
+        return model.generateSolution();
+    }
 
-    //endregion
+    public boolean isSolved() {
+        return model.isSolved();
+    }
 }

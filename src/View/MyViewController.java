@@ -1,110 +1,158 @@
 package View;
+
+import Model.MyModel;
 import ViewModel.MyViewModel;
-import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.MyMazeGenerator;
-import algorithms.search.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.event.EventHandler;
-import javafx.fxml.Initializable;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.Observable;
+import java.util.Observer;
 
-/**
- * Created by Aviadjo on 3/9/2017.
- */
-public class MyViewController extends Canvas {
+public class MyViewController implements Observer, IView {
 
-    private Maze maze;
-    private int characterPositionRow = 1;
-    private int characterPositionColumn = 1;
+    @FXML
+    private MyViewModel viewModel = new MyViewModel(new MyModel());
+    public MazeDisplay mazeDisplayer = new MazeDisplay();
+    public javafx.scene.control.TextField txt_row;
+    public javafx.scene.control.TextField txt_col;
+    public javafx.scene.control.Label lbl_rowsNum;
+    public javafx.scene.control.Label lbl_columnsNum;//where user wants to go
+    public javafx.scene.control.Button GenerateMaze;
 
-    public int getCharacterPositionRow() {
-        return characterPositionRow;
-    }
-    public int getCharacterPositionColumn() {
-        return characterPositionColumn;
-    }
+    public StringProperty characterPositionRow = new SimpleStringProperty();
+    public StringProperty characterPositionColumn = new SimpleStringProperty();
 
-    public void setMaze(int rows, int columns) {
-        IMazeGenerator mg = new MyMazeGenerator();
-        Maze x = mg.generate(rows, columns);
-        this.maze = x;
-        redraw();
+    public void setViewModel(MyViewModel viewModel) {
+        this.viewModel = viewModel;
+        bindProperties(viewModel);
     }
 
-    public void setCharacterPosition(int row, int column) {
-        characterPositionRow = row;
-        characterPositionColumn = column;
-        redraw();
+    private void bindProperties(MyViewModel viewModel) {
+        lbl_rowsNum.textProperty().bind(viewModel.characterPositionRow);
+        lbl_columnsNum.textProperty().bind(viewModel.characterPositionColumn);
     }
-    
-    public void redraw() {
-        if (maze != null) {
-            double canvasHeight = getHeight();
-            double canvasWidth = getWidth();
-            double cellHeight = canvasHeight / maze.numOfRows();
-            double cellWidth = canvasWidth / maze.numOfColumns();
 
-            try {
-                GraphicsContext graphicsContext2D = getGraphicsContext2D();
-                graphicsContext2D.clearRect(0, 0, getWidth(), getHeight()); //Clears the canvas
-                Image wallImage = new Image(new FileInputStream(ImageFileNameWall.get()));
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o == viewModel) {
+//            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(), viewModel.getCharacterPositionColumn());
+            displayMaze(viewModel.getMaze());
+            GenerateMaze.setDisable(false);
 
-                //Draw Maze
-                for (int i = 0; i < maze.numOfRows(); i++) {
-                    for (int j = 0; j < maze.numOfColumns();j++) {
-                        if (maze.getCellValue(i,j) == 1) {
-                            //graphicsContext2D.fillRect(i * cellHeight, j * cellWidth, cellHeight, cellWidth);
-                            graphicsContext2D.drawImage(wallImage, i * cellHeight, j * cellWidth, cellHeight, cellWidth);
-                        }
-                    }
-                }
-
-                //Draw Character
-                //gc.setFill(Color.RED);
-                //gc.fillOval(characterPositionColumn * cellHeight, characterPositionRow * cellWidth, cellHeight, cellWidth);
-                Image characterImage = new Image(new FileInputStream(ImageFileNameCharacter.get()));
-                graphicsContext2D.drawImage(characterImage, characterPositionColumn * cellHeight, characterPositionRow * cellWidth, cellHeight, cellWidth);
-            } catch (FileNotFoundException e) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText(String.format("Image doesn't exist: %s",e.getMessage()));
-                alert.show();
-            }
+            //mazeDisplayer.setCharacterPosition(mazeDisplayer.getCharacterPositionRow(),mazeDisplayer.getCharacterPositionColumn());
+            mazeDisplayer.redraw();
         }
     }
 
-    //region Properties
-    private StringProperty ImageFileNameWall = new SimpleStringProperty();
-    private StringProperty ImageFileNameCharacter = new SimpleStringProperty();
-
-    public String getImageFileNameWall() {
-        return ImageFileNameWall.get();
+    @Override
+    public void displayMaze(int[][] maze) {
+        int characterPositionRow = viewModel.getCharacterPositionRow();
+        int characterPositionColumn = viewModel.getCharacterPositionColumn();
+        mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
+        this.characterPositionRow.set(characterPositionRow + "");
+        this.characterPositionColumn.set(characterPositionColumn + "");
+        mazeDisplayer.redraw();
     }
 
-    public void setImageFileNameWall(String imageFileNameWall) {
-        this.ImageFileNameWall.set(imageFileNameWall);
+    public void generateMaze() {
+        int heigth;
+        int width;
+        try {
+            heigth = Integer.valueOf(txt_row.getText());
+        } catch (Exception e) {
+            heigth = 10;
+        }
+        try {
+            width = Integer.valueOf(txt_col.getText());
+        } catch (Exception e) {
+            width = 10;
+        }
+        int[][] temp = viewModel.generateMaze(width, heigth);
+        mazeDisplayer.setMaze(temp);
+        displayMaze(temp);
     }
 
-    public String getImageFileNameCharacter() {
-        return ImageFileNameCharacter.get();
+    public void solveMaze(ActionEvent actionEvent) {
+        showAlert("Solving maze..");
+        System.out.println(viewModel.isSolved());
+        viewModel.getSolution();
+        System.out.println(viewModel.isSolved());
+
     }
 
-    public void setImageFileNameCharacter(String imageFileNameCharacter) {
-        this.ImageFileNameCharacter.set(imageFileNameCharacter);
+    private void showAlert(String alertMessage) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(alertMessage);
+        alert.show();
     }
+
+    public void KeyPressed(KeyEvent keyEvent) {
+        viewModel.moveCharacter(keyEvent.getCode());
+        keyEvent.consume();
+    }
+
+    //region String Property for Binding
+
+    public String getCharacterPositionRow() {
+        return characterPositionRow.get();
+    }
+
+    public StringProperty characterPositionRowProperty() {
+        return characterPositionRow;
+    }
+
+    public String getCharacterPositionColumn() {
+        return characterPositionColumn.get();
+    }
+
+    public StringProperty characterPositionColumnProperty() {
+        return characterPositionColumn;
+    }
+
+    public void setResizeEvent(Scene scene) {
+        long width = 0;
+        long height = 0;
+        scene.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+                System.out.println("Width: " + newSceneWidth);
+            }
+        });
+        scene.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+                System.out.println("Height: " + newSceneHeight);
+            }
+        });
+    }
+
+    public void About(ActionEvent actionEvent) {
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("AboutController");
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent root = fxmlLoader.load(getClass().getResource("About.fxml").openStream());
+            Scene scene = new Scene(root, 400, 350);
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
+            stage.show();
+        } catch (Exception e) {
+
+        }
+    }
+
     //endregion
 
 }
