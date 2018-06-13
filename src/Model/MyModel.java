@@ -47,9 +47,9 @@ public class MyModel extends Observable implements IModel {
     public void MazeToArr(Maze m) { //TODO from int to byte
         int row = m.numOfRows();
         int col = m.numOfColumns();
-        maze = new int[row][col];
-        for (int i = 0; i < row; i++)
-            for (int j = 0; j < col; j++)
+        maze = new int[m.numOfRows()][m.numOfColumns()];
+        for (int i = 0; i < m.numOfRows(); i++)
+            for (int j = 0; j < m.numOfColumns(); j++)
                 maze[i][j] = m.getCellValue(i, j); //TODO rannan check if this is good rows\col
     }
 
@@ -65,14 +65,6 @@ public class MyModel extends Observable implements IModel {
         characterPositionColumn = UpdatePos.getColumnIndex();
         characterPositionRow = UpdatePos.getRowIndex();
         endposition = newMazeGenerate.getGoalPosition();
-        System.out.println("goal:"+endposition);
-        System.out.println("value:"+maze[endposition.getRowIndex()][endposition.getColumnIndex()]);
-        newMazeGenerate.print();
-        for ( int i = 0 ; i < maze.length; i++){
-            for ( int j = 0 ; j < maze[0].length; j++)
-                System.out.print(maze[i][j]);
-            System.out.println();
-        }
         gameFinsih=false;
         setChanged();
         notifyObservers();
@@ -136,23 +128,6 @@ public class MyModel extends Observable implements IModel {
                         characterPositionRow--;
                     }
                 break;
-            case W:
-                if (isNotLegalMove(x, y - 1) == false)
-                    characterPositionRow--;
-                break;
-            case S:
-                if (isNotLegalMove(x, y + 1) == false)
-                    characterPositionRow++;
-                break;
-            case D:
-                if (isNotLegalMove(x + 1, y) == false)
-                    characterPositionColumn++;
-                break;
-            case A:
-                if (isNotLegalMove(x - 1, y) == false)
-                    characterPositionColumn--;
-                break;
-
         }
         if (endposition.getColumnIndex() == getCharacterPositionColumn() && endposition.getRowIndex()==getCharacterPositionRow())
             gameFinsih=true;
