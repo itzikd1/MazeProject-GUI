@@ -170,7 +170,7 @@ public class MyModel extends Observable implements IModel {
         for (int i = 0; i < solutionPath.size(); i++) {
             System.out.println(((MazeState)(solutionPath.get(i))).getCol());
         }
-        mazeSolutionArr = new 
+        mazeSolutionArr = new
         setChanged();
         notifyObservers();
         return solve;
