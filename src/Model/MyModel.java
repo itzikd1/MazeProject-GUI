@@ -49,9 +49,9 @@ public class MyModel extends Observable implements IModel {
     public void MazeToArr(Maze m) { //TODO from int to byte
         int row = m.numOfRows();
         int col = m.numOfColumns();
-        maze = new int[m.numOfRows()][m.numOfColumns()];
-        for (int i = 0; i < m.numOfRows(); i++)
-            for (int j = 0; j < m.numOfColumns(); j++)
+        maze = new int[row][col];
+        for (int i = 0; i < row; i++)
+            for (int j = 0; j < col; j++)
                 maze[i][j] = m.getCellValue(i, j); //TODO rannan check if this is good rows\col
     }
 
@@ -69,6 +69,7 @@ public class MyModel extends Observable implements IModel {
         characterPositionRow = UpdatePos.getRowIndex();
         endposition = newMazeGenerate.getGoalPosition();
         gameFinsih=false;
+        newMazeGenerate.print();
         setChanged();
         notifyObservers();
         return maze;
@@ -84,23 +85,27 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void moveCharacter(KeyCode movement) { //TODO do we need to do this in controler? beacuse then we double the code
-        int y = characterPositionRow;
-        int x = characterPositionColumn;
+        int x = characterPositionRow;
+        int y = characterPositionColumn;
         switch (movement) {
             case NUMPAD8:
-                if (isNotLegalMove(x, y - 1) == false)
+            case W:
+                if (isNotLegalMove(x-1 , y) == false)
                     characterPositionRow--;
                 break;
             case NUMPAD2:
-                if (isNotLegalMove(x, y + 1) == false)
+            case S:
+                if (isNotLegalMove(x+1, y) == false)
                     characterPositionRow++;
                 break;
             case NUMPAD6:
-                if (isNotLegalMove(x + 1, y) == false)
+            case D:
+                if (isNotLegalMove(x, y+1) == false)
                     characterPositionColumn++;
                 break;
+            case A:
             case NUMPAD4:
-                if (isNotLegalMove(x - 1, y) == false)
+                if (isNotLegalMove(x, y-1) == false)
                     characterPositionColumn--;
                 break;
             case NUMPAD3:
@@ -111,15 +116,15 @@ public class MyModel extends Observable implements IModel {
                     }
                 break;
             case NUMPAD1:
-                if (isNotLegalMove(x - 1, y + 1) == false)
+                if (isNotLegalMove(x+1, y - 1) == false)
                     if (isNotLegalMove(x, y + 1) == false || isNotLegalMove(x - 1, y) == false) {
                         characterPositionColumn--;
                         characterPositionRow++;
                     }
                 break;
             case NUMPAD9:
-                if (isNotLegalMove(x + 1, y - 1) == false)
-                    if (isNotLegalMove(x, y - 1) == false || isNotLegalMove(x + 1, y) == false) {
+                if (isNotLegalMove(x-1, y - 1) == false)
+                    if (isNotLegalMove(x-1, y) == false || isNotLegalMove(x, y+1) == false) {
                         characterPositionColumn++;
                         characterPositionRow--;
                     }
@@ -131,6 +136,8 @@ public class MyModel extends Observable implements IModel {
                         characterPositionRow--;
                     }
                 break;
+
+
         }
         if (endposition.getColumnIndex() == getCharacterPositionColumn() && endposition.getRowIndex()==getCharacterPositionRow())
             gameFinsih=true;

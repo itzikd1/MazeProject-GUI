@@ -169,6 +169,7 @@ public class MyViewController implements Observer, IView {
 
         try {
             FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
+            f = new FileOutputStream(new File("myObjects.txt"));
             ObjectOutputStream o = new ObjectOutputStream(f);
 
             // Write objects to file
