@@ -17,6 +17,12 @@ import java.util.Optional;
 
 public class Main extends Application {
 
+    //TODO load and save
+    //TODO size of canvas isnt good
+    //TODO hint show 1 step foward, and there is a counter so we know what is the next step
+    //TODO option, what algorithem to run and what type of maze
+    //TODO change images
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         MyModel model = new MyModel();

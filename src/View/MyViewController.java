@@ -14,8 +14,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -23,7 +21,6 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Optional;
 
 public class MyViewController implements Observer, IView {
 
@@ -168,10 +165,11 @@ public class MyViewController implements Observer, IView {
             stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
             stage.show();
         } catch (Exception e) {
-            System.out.println(e);
-//            System.out.println("Error About.fxml not found");
+//            System.out.println(e);
+            System.out.println("Error About.fxml not found");
         }
     }
+
     public void Help(ActionEvent actionEvent) {
         try {
             Stage stage = new Stage();
@@ -192,7 +190,7 @@ public class MyViewController implements Observer, IView {
         int[][] currentMaze = viewModel.getMaze();
         int x1 = viewModel.getCharacterPositionRow();
         int y1 = viewModel.getCharacterPositionColumn();
-        Position goalPosition= viewModel.getOriginal().getGoalPosition();
+        Position goalPosition = viewModel.getOriginal().getGoalPosition();
 
         try {
             FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
@@ -211,7 +209,6 @@ public class MyViewController implements Observer, IView {
         } catch (IOException e) {
             System.out.println("Error initializing stream");
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         //endregion
@@ -244,7 +241,6 @@ public class MyViewController implements Observer, IView {
         } catch (IOException e) {
             System.out.println("Error initializing stream");
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

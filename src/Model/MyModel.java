@@ -59,7 +59,7 @@ public class MyModel extends Observable implements IModel {
         return gameFinish;
     }
 
-    private void MazeToArr(Maze m) { //TODO from int to byte
+    private void MazeToArr(Maze m) {
         int row = m.numOfRows();
         int col = m.numOfColumns();
         maze = new int[row][col];
@@ -82,7 +82,7 @@ public class MyModel extends Observable implements IModel {
                         ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                         ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                         toServer.flush();
-                        int[] mazeDimensions = new int[]{width, height}; //TODO check if its right
+                        int[] mazeDimensions = new int[]{width, height};
                         toServer.writeObject(mazeDimensions); //send mazedimensions to server
                         toServer.flush();
                         byte[] compressedMaze = (byte[]) fromServer.readObject(); //read generated maze (compressed withMyCompressor)from server
@@ -119,7 +119,7 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
-    public void moveCharacter(KeyCode movement) { //TODO do we need to do this in controller? because then we double the code
+    public void moveCharacter(KeyCode movement) {
         int x = characterPositionRow;
         int y = characterPositionColumn;
         switch (movement) {
@@ -186,7 +186,7 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void setGoalPosition(Position goalPosition) {
-        this.endPosition=goalPosition;
+        this.endPosition = goalPosition;
     }
 
     public Maze getOriginal() {

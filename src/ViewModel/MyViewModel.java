@@ -3,7 +3,6 @@ package ViewModel;
 import Model.IModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
-import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.input.KeyCode;
@@ -11,7 +10,6 @@ import javafx.scene.input.KeyCode;
 import java.util.Observable;
 import java.util.Observer;
 
-//TODO fix generate maze, so end position not on wall (3X3 size)
 public class MyViewModel extends Observable implements Observer {
 
     private IModel model;

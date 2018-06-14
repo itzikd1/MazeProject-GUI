@@ -40,10 +40,10 @@ public class MazeDisplay extends Canvas {
 
     public void redraw() {
         if (maze != null) {
-            if (this.getScene()!=null) {
-                this.setHeight(this.getScene().getWidth());
-                this.setWidth(this.getScene().getHeight());
-            }
+//            if (this.getScene()!=null) {
+//                this.setHeight(this.getScene().getWidth());
+//                this.setWidth(this.getScene().getHeight()*8/11);
+//            }
             double canvasHeight = getHeight();
             double canvasWidth = getWidth();
             double cellHeight = canvasHeight / maze[0].length;
@@ -58,9 +58,10 @@ public class MazeDisplay extends Canvas {
                 for (int i = 0; i < maze.length; i++) {
                     for (int j = 0; j < maze[i].length; j++) {
                         if (maze[i][j] == 1) {
-                            //graphicsContext2D.fillRect(i * cellHeight, j * cellWidth, cellHeight, cellWidth);
                             graphicsContext2D.drawImage(wallImage, j * cellHeight, i * cellWidth, cellHeight, cellWidth);
                         }
+//                        graphicsContext2D.setFill(Color.WHITE);
+//                        graphicsContext2D.fillRect(i,j,cellHeight,cellWidth);
                     }
                 }
 
