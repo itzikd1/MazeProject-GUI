@@ -165,10 +165,12 @@ public class MyModel extends Observable implements IModel {
         for (int i = 0; i < solutionPath.size(); i++) {
             System.out.println(String.format("%s. %s", i, solutionPath.get(i)));
         }
+        int sizeOfSolution =  solutionPath.size();
+        mazeSolutionArr = new int[2][sizeOfSolution];
         for (int i = 0; i < solutionPath.size(); i++) {
-            System.out.println(((MazeState)(solutionPath.get(i))).getCol());
+            mazeSolutionArr[0][i]=((MazeState)(solutionPath.get(i))).getRow();
+            mazeSolutionArr[1][i]=((MazeState)(solutionPath.get(i))).getCol();
         }
-        mazeSolutionArr = new
         setChanged();
         notifyObservers();
         return solve;

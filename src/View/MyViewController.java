@@ -67,6 +67,8 @@ public class MyViewController implements Observer, IView {
         int characterPositionColumn = viewModel.getCharacterPositionColumn();
         mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
         mazeDisplayer.endposition(viewModel.getendposition());
+        mazeDisplayer.Solved(viewModel.getMazeSolutionArr());
+        mazeDisplayer.isSolved(viewModel.isSolved());
         this.characterPositionRow.set(characterPositionRow + "");
         this.characterPositionColumn.set(characterPositionColumn + "");
         mazeDisplayer.redraw();
