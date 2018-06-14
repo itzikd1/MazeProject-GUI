@@ -1,14 +1,10 @@
 package ViewModel;
 
 import Model.IModel;
-import Model.MyModel;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 
 import java.util.Observable;
@@ -42,7 +38,7 @@ public class MyViewModel extends Observable implements Observer {
     }
 
     public int[][] generateMaze(int width, int height) {
-        int [][] temp =  model.generateMaze(width, height);
+        int[][] temp = model.generateMaze(width, height);
         return temp;
     }
 
@@ -55,8 +51,8 @@ public class MyViewModel extends Observable implements Observer {
         model.moveCharacter(movement);
     }
 
-    public boolean gameFinsih (){
-       return model.gameFinsih();
+    public boolean gameFinsih() {
+        return model.gameFinsih();
     }
 
     public int[][] getMaze() {
@@ -80,20 +76,20 @@ public class MyViewModel extends Observable implements Observer {
     }
 
     public void setCharacterPositionRow(int row) {
-        characterPositionRowIndex=row;
+        characterPositionRowIndex = row;
         model.setCharacterPositionRow(row);
     }
 
     public void setCharacterPositionColumn(int col) {
-        characterPositionColumnIndex=col;
+        characterPositionColumnIndex = col;
         model.setCharacterPositionCol(col);
     }
 
-    public void setMaze(int [][] maze){
+    public void setMaze(int[][] maze) {
         model.setMaze(maze);
     }
 
-    public int[][] getMazeSolutionArr(){
+    public int[][] getMazeSolutionArr() {
         return model.getMazeSolutionArr();
     }
 }

@@ -5,7 +5,6 @@ import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -18,19 +17,22 @@ responsible for all the function part
 public class MyModel extends Observable implements IModel {
     private int[][] maze;
     private Maze Original;
-    private Solution solve;
     private boolean solved;
     private boolean gameFinsih;
     private int characterPositionRow;
     private int characterPositionColumn;
     private Position endposition;
     private int[][] mazeSolutionArr;
-//    private KeyEvent keyEvent;
+    //    private KeyEvent keyEvent;
     private ExecutorService threadPool = Executors.newCachedThreadPool();
 
 
     public int getCharacterPositionRow() {
         return characterPositionRow;
+    }
+
+    public void setCharacterPositionRow(int row) {
+        this.characterPositionRow = row;
     }
 
     public int getCharacterPositionColumn() {
@@ -64,7 +66,7 @@ public class MyModel extends Observable implements IModel {
         MazeToArr(newMazeGenerate);
         Position UpdatePos = new Position(1, 1);
         UpdatePos = newMazeGenerate.getStartPosition();
-        this.Original=newMazeGenerate;
+        this.Original = newMazeGenerate;
         characterPositionColumn = UpdatePos.getColumnIndex();
         characterPositionRow = UpdatePos.getRowIndex();
         endposition = newMazeGenerate.getGoalPosition();
@@ -91,22 +93,22 @@ public class MyModel extends Observable implements IModel {
         switch (movement) {
             case NUMPAD8:
             case W:
-                if (isNotLegalMove(x-1 , y) == false)
+                if (isNotLegalMove(x - 1, y) == false)
                     characterPositionRow--;
                 break;
             case NUMPAD2:
             case S:
-                if (isNotLegalMove(x+1, y) == false)
+                if (isNotLegalMove(x + 1, y) == false)
                     characterPositionRow++;
                 break;
             case NUMPAD6:
             case D:
-                if (isNotLegalMove(x, y+1) == false)
+                if (isNotLegalMove(x, y + 1) == false)
                     characterPositionColumn++;
                 break;
             case A:
             case NUMPAD4:
-                if (isNotLegalMove(x, y-1) == false)
+                if (isNotLegalMove(x, y - 1) == false)
                     characterPositionColumn--;
                 break;
             case NUMPAD3:
@@ -117,15 +119,15 @@ public class MyModel extends Observable implements IModel {
                     }
                 break;
             case NUMPAD1:
-                if (isNotLegalMove(x+1, y - 1) == false)
+                if (isNotLegalMove(x + 1, y - 1) == false)
                     if (isNotLegalMove(x, y + 1) == false || isNotLegalMove(x - 1, y) == false) {
                         characterPositionColumn--;
                         characterPositionRow++;
                     }
                 break;
             case NUMPAD9:
-                if (isNotLegalMove(x-1, y - 1) == false)
-                    if (isNotLegalMove(x-1, y) == false || isNotLegalMove(x, y+1) == false) {
+                if (isNotLegalMove(x - 1, y - 1) == false)
+                    if (isNotLegalMove(x - 1, y) == false || isNotLegalMove(x, y + 1) == false) {
                         characterPositionColumn++;
                         characterPositionRow--;
                     }
@@ -138,8 +140,8 @@ public class MyModel extends Observable implements IModel {
                     }
                 break;
         }
-        if (endposition.getColumnIndex() == getCharacterPositionColumn() && endposition.getRowIndex()==getCharacterPositionRow())
-            gameFinsih=true;
+        if (endposition.getColumnIndex() == getCharacterPositionColumn() && endposition.getRowIndex() == getCharacterPositionRow())
+            gameFinsih = true;
         setChanged();
         notifyObservers();
 
@@ -150,10 +152,6 @@ public class MyModel extends Observable implements IModel {
         return maze;
     }
 
-    public boolean isSolved() {
-        return this.solved;
-    }
-
 
 //    public void setCharacterPosition(int row, int column) {
 //        characterPositionRow = row;
@@ -161,21 +159,30 @@ public class MyModel extends Observable implements IModel {
 //    }
 
     @Override
+    public void setMaze(int[][] maze) {
+        this.maze = maze;
+    }
+
+    public boolean isSolved() {
+        return this.solved;
+    }
+
+    @Override
     public Solution generateSolution() {
         SearchableMaze MazeToSolve = new SearchableMaze(Original);
         BreadthFirstSearch bfs = new BreadthFirstSearch();
         Solution keepSolution = bfs.solve(MazeToSolve);
         ArrayList<AState> solutionPath = keepSolution.getSolutionPath();
-        solve = keepSolution;
+        Solution solve = keepSolution;
         solved = true;
         for (int i = 0; i < solutionPath.size(); i++) {
             System.out.println(String.format("%s. %s", i, solutionPath.get(i)));
         }
-        int sizeOfSolution =  solutionPath.size();
+        int sizeOfSolution = solutionPath.size();
         mazeSolutionArr = new int[2][sizeOfSolution];
         for (int i = 0; i < solutionPath.size(); i++) {
-            mazeSolutionArr[0][i]=((MazeState)(solutionPath.get(i))).getRow();
-            mazeSolutionArr[1][i]=((MazeState)(solutionPath.get(i))).getCol();
+            mazeSolutionArr[0][i] = ((MazeState) (solutionPath.get(i))).getRow();
+            mazeSolutionArr[1][i] = ((MazeState) (solutionPath.get(i))).getCol();
         }
         setChanged();
         notifyObservers();
@@ -186,17 +193,7 @@ public class MyModel extends Observable implements IModel {
         return mazeSolutionArr;
     }
 
-
-    public void setCharacterPositionRow(int row){
-        this.characterPositionRow=row;
-    }
-
-    @Override
-    public void setMaze(int[][] maze) {
-        this.maze=maze;
-    }
-
-    public void setCharacterPositionCol(int col){
-        this.characterPositionColumn=col;
+    public void setCharacterPositionCol(int col) {
+        this.characterPositionColumn = col;
     }
 }
