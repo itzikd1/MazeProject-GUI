@@ -22,9 +22,9 @@ public interface IModel {
 
     int getCharacterPositionColumn();
 
-    Position getEndpositionl();
+    Position getEndPosition();
 
-    boolean gameFinsih();
+    boolean gameFinish();
 
     void setCharacterPositionCol(int col);
 

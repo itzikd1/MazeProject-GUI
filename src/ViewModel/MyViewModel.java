@@ -41,8 +41,8 @@ public class MyViewModel extends Observable implements Observer {
         return model.generateMaze(width, height);
     }
 
-    public Position getendposition() {
-        return model.getEndpositionl();
+    public Position getEndPosition() {
+        return model.getEndPosition();
 
     }
 
@@ -50,8 +50,8 @@ public class MyViewModel extends Observable implements Observer {
         model.moveCharacter(movement);
     }
 
-    public boolean gameFinsih() {
-        return model.gameFinsih();
+    public boolean gameFinish() {
+        return model.gameFinish();
     }
 
     public int[][] getMaze() {

@@ -11,15 +11,12 @@ import javafx.scene.image.Image;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-/**
- * Created by Aviadjo on 3/9/2017.
- */
 public class MazeDisplay extends Canvas {
 
     private int[][] maze;
     private int characterPositionRow;
     private int characterPositionColumn;
-    private Position endposition;
+    private Position endPosition;
     private int[][] solved;
     private boolean isSolved;
 
@@ -28,7 +25,7 @@ public class MazeDisplay extends Canvas {
     }
 
     public void endposition(algorithms.mazeGenerators.Position end) {
-        endposition = end;
+        endPosition = end;
     }
 
     public void Solved(int[][] answer) {
@@ -65,7 +62,7 @@ public class MazeDisplay extends Canvas {
 
                 //draw end point
                 Image endPos = new Image(new FileInputStream("resources/images/end.jpg"));
-                graphicsContext2D.drawImage(endPos, endposition.getColumnIndex() * cellHeight, endposition.getRowIndex() * cellWidth, cellHeight, cellWidth);
+                graphicsContext2D.drawImage(endPos, endPosition.getColumnIndex() * cellHeight, endPosition.getRowIndex() * cellWidth, cellHeight, cellWidth);
 
                 //Draw solution
                 if (isSolved) {

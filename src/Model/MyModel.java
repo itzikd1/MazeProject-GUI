@@ -18,10 +18,10 @@ public class MyModel extends Observable implements IModel {
     private int[][] maze;
     private Maze Original;
     private boolean solved;
-    private boolean gameFinsih;
+    private boolean gameFinish;
     private int characterPositionRow;
     private int characterPositionColumn;
-    private Position endposition;
+    private Position endPosition;
     private int[][] mazeSolutionArr;
     //    private KeyEvent keyEvent;
     private ExecutorService threadPool = Executors.newCachedThreadPool();
@@ -39,13 +39,13 @@ public class MyModel extends Observable implements IModel {
         return characterPositionColumn;
     }
 
-    public Position getEndpositionl() {
-        return endposition;
+    public Position getEndPosition() {
+        return endPosition;
     }
 
     @Override
-    public boolean gameFinsih() {
-        return gameFinsih;
+    public boolean gameFinish() {
+        return gameFinish;
     }
 
     private void MazeToArr(Maze m) { //TODO from int to byte
@@ -69,10 +69,10 @@ public class MyModel extends Observable implements IModel {
         this.Original = newMazeGenerate;
         characterPositionColumn = UpdatePos.getColumnIndex();
         characterPositionRow = UpdatePos.getRowIndex();
-        endposition = newMazeGenerate.getGoalPosition();
-        System.out.println(endposition);
+        endPosition = newMazeGenerate.getGoalPosition();
+        System.out.println(endPosition);
         newMazeGenerate.print();
-        gameFinsih = false;
+        gameFinish = false;
         setChanged();
         notifyObservers();
         return maze;
@@ -85,7 +85,7 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
-    public void moveCharacter(KeyCode movement) { //TODO do we need to do this in controler? beacuse then we double the code
+    public void moveCharacter(KeyCode movement) { //TODO do we need to do this in controller? because then we double the code
         int x = characterPositionRow;
         int y = characterPositionColumn;
         switch (movement) {
@@ -138,8 +138,8 @@ public class MyModel extends Observable implements IModel {
                     }
                 break;
         }
-        if (endposition.getColumnIndex() == getCharacterPositionColumn() && endposition.getRowIndex() == getCharacterPositionRow())
-            gameFinsih = true;
+        if (endPosition.getColumnIndex() == getCharacterPositionColumn() && endPosition.getRowIndex() == getCharacterPositionRow())
+            gameFinish = true;
         setChanged();
         notifyObservers();
 

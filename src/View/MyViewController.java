@@ -26,7 +26,7 @@ public class MyViewController implements Observer, IView {
     @FXML
     private MyViewModel viewModel = new MyViewModel(new MyModel());
     public MazeDisplay mazeDisplayer = new MazeDisplay();
-    boolean showonce = false;
+    boolean showOnce = false;
     public javafx.scene.control.TextField txt_row;
     public javafx.scene.control.TextField txt_col;
     public javafx.scene.control.Label lbl_rowsNum;
@@ -53,11 +53,11 @@ public class MyViewController implements Observer, IView {
 //            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(), viewModel.getCharacterPositionColumn());
             displayMaze(viewModel.getMaze());
             GenerateMaze.setDisable(false);
-            if (viewModel.gameFinsih() && !showonce) {
+            if (viewModel.gameFinish() && !showOnce) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("Game Done");
                 alert.show();
-                showonce = true;
+                showOnce = true;
             }
             //mazeDisplayer.setCharacterPosition(mazeDisplayer.getCharacterPositionRow(),mazeDisplayer.getCharacterPositionColumn());
             mazeDisplayer.redraw();
@@ -69,7 +69,7 @@ public class MyViewController implements Observer, IView {
         int characterPositionRow = viewModel.getCharacterPositionRow();
         int characterPositionColumn = viewModel.getCharacterPositionColumn();
         mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
-        mazeDisplayer.endposition(viewModel.getendposition());
+        mazeDisplayer.endposition(viewModel.getEndPosition());
         mazeDisplayer.Solved(viewModel.getMazeSolutionArr());
         mazeDisplayer.isSolved(viewModel.isSolved());
         this.characterPositionRow.set(characterPositionRow + "");
@@ -78,22 +78,22 @@ public class MyViewController implements Observer, IView {
     }
 
     public void generateMaze() {
-        showonce = false;
-        int heigth;
+        showOnce = false;
+        int height;
         int width;
         try {
-            heigth = Integer.valueOf(txt_row.getText());
+            height = Integer.valueOf(txt_row.getText());
         } catch (Exception e) {
-            heigth = 10;
+            height = 10;
         }
         try {
             width = Integer.valueOf(txt_col.getText());
         } catch (Exception e) {
             width = 10;
         }
-        int[][] temp = viewModel.generateMaze(heigth, width);
+        int[][] temp = viewModel.generateMaze(height, width);
         mazeDisplayer.setMaze(temp);
-        mazeDisplayer.endposition(viewModel.getendposition());
+        mazeDisplayer.endposition(viewModel.getEndPosition());
         SolveMaze.setVisible(true);
         displayMaze(temp);
     }

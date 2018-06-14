@@ -20,7 +20,7 @@ public class About implements Initializable {
         text.setWrapText(true);
         text.setText("Hello and welcome to Itzik and Raanan's project.\n" +
                 "Here you will see our project we made in java.\n" +
-                "This is a game of maze and you need to get the charcter " +
+                "This is a game of maze and you need to get the character " +
                 "to the end of the maze where the flag is.\n" +
                 "Hope you enjoy our game! good luck");
     }
