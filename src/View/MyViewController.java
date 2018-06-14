@@ -168,7 +168,8 @@ public class MyViewController implements Observer, IView {
             stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
             stage.show();
         } catch (Exception e) {
-            System.out.println("Error About.fxml not found");
+            System.out.println(e);
+//            System.out.println("Error About.fxml not found");
         }
     }
     public void Help(ActionEvent actionEvent) {

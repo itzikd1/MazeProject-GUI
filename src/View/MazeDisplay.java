@@ -40,6 +40,10 @@ public class MazeDisplay extends Canvas {
 
     public void redraw() {
         if (maze != null) {
+            if (this.getScene()!=null) {
+                this.setHeight(this.getScene().getWidth());
+                this.setWidth(this.getScene().getHeight());
+            }
             double canvasHeight = getHeight();
             double canvasWidth = getWidth();
             double cellHeight = canvasHeight / maze[0].length;
