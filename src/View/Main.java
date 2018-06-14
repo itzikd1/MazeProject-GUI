@@ -3,6 +3,7 @@ package View;
 import Model.MyModel;
 import ViewModel.MyViewModel;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -48,6 +49,7 @@ public class Main extends Application {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     primaryStage.close();
+                    Platform.exit();
                 } else {
                     // ... user chose CANCEL or closed the dialog
                     windowEvent.consume();

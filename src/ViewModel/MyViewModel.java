@@ -71,8 +71,8 @@ public class MyViewModel extends Observable implements Observer {
         return characterPositionColumnIndex;
     }
 
-    public Solution getSolution() {
-        return model.generateSolution();
+    public void getSolution() {
+        model.generateSolution();
     }
 
     public boolean isSolved() {
@@ -91,6 +91,10 @@ public class MyViewModel extends Observable implements Observer {
 
     public void setMaze(int[][] maze) {
         model.setMaze(maze);
+    }
+
+    public void setGoalPosition(Position goalPosition) {
+        model.setGoalPosition(goalPosition);
     }
 
     public int[][] getMazeSolutionArr() {

@@ -14,6 +14,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -21,6 +23,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Optional;
 
 public class MyViewController implements Observer, IView {
 
@@ -101,10 +104,8 @@ public class MyViewController implements Observer, IView {
 
     public void solveMaze(ActionEvent actionEvent) {
         showAlert("Solving maze..");
-        System.out.println(viewModel.isSolved());
         viewModel.getSolution();
         SolveMaze.setVisible(false);
-        System.out.println(viewModel.isSolved());
     }
 
     public void exit(ActionEvent actionEvent) {
@@ -159,7 +160,7 @@ public class MyViewController implements Observer, IView {
     public void About(ActionEvent actionEvent) {
         try {
             Stage stage = new Stage();
-            stage.setTitle("AboutController");
+            stage.setTitle("About");
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource("About.fxml").openStream());
             Scene scene = new Scene(root, 300, 165);
@@ -168,6 +169,20 @@ public class MyViewController implements Observer, IView {
             stage.show();
         } catch (Exception e) {
             System.out.println("Error About.fxml not found");
+        }
+    }
+    public void Help(ActionEvent actionEvent) {
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Help");
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent root = fxmlLoader.load(getClass().getResource("Help.fxml").openStream());
+            Scene scene = new Scene(root, 400, 400);
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Error Help.fxml not found");
         }
     }
 
@@ -216,6 +231,7 @@ public class MyViewController implements Observer, IView {
             viewModel.setCharacterPositionRow(x1);
             viewModel.setCharacterPositionColumn(y1);
             viewModel.setMaze(currentMaze);
+            viewModel.setGoalPosition(goalPosition);
             oi.close();
             fi.close();
             mazeDisplayer.setMaze(currentMaze);
@@ -232,6 +248,5 @@ public class MyViewController implements Observer, IView {
         }
 
     }
-    //endregion
 
 }

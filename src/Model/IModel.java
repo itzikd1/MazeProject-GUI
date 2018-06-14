@@ -15,9 +15,11 @@ public interface IModel {
 
     int[][] getMaze();
 
+    void setGoalPosition(Position goalPosition);
+
     int[][] getMazeSolutionArr();
 
-    Solution generateSolution();
+    void generateSolution();
 
     boolean isSolved();
 
