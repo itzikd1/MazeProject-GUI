@@ -1,5 +1,6 @@
 package View;
 
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 
@@ -11,6 +12,10 @@ public class About implements Initializable {
     public javafx.scene.control.Label text;
 
     public void close() {
+        Platform.exit();
+    }
+
+    public void closew() {
         Stage s = (Stage) exit.getScene().getWindow();
         s.close();
     }
