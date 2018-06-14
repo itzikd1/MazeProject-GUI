@@ -111,6 +111,10 @@ public class MazeDisplay extends Canvas {
     public void isSolved(boolean solved) {
         this.isSolved = solved;
     }
+
+    public void setGoalPosition(Position goalPosition) {
+        this.endPosition = goalPosition;
+    }
     //endregion
 
 }

@@ -6,6 +6,7 @@ import algorithms.mazeGenerators.Position;
 import algorithms.search.*;
 import javafx.scene.input.KeyCode;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.concurrent.ExecutorService;
@@ -23,6 +24,7 @@ public class MyModel extends Observable implements IModel {
     private int characterPositionColumn;
     private Position endPosition;
     private int[][] mazeSolutionArr;
+    
     //    private KeyEvent keyEvent;
     private ExecutorService threadPool = Executors.newCachedThreadPool();
 
@@ -150,15 +152,28 @@ public class MyModel extends Observable implements IModel {
         return maze;
     }
 
-
-//    public void setCharacterPosition(int row, int column) {
-//        characterPositionRow = row;
-//        characterPositionColumn = column;
-//    }
+    public Maze getOriginal() {
+        return Original;
+    }
 
     @Override
     public void setMaze(int[][] maze) {
         this.maze = maze;
+    }
+
+    @Override
+    public void saveCurrentMaze(File file, String name) {
+
+    }
+
+    @Override
+    public void saveOriginalMaze(File file, String name) {
+
+    }
+
+    @Override
+    public void loadMaze(File file) {
+
     }
 
     public boolean isSolved() {

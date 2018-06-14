@@ -1,8 +1,11 @@
 package Model;
 
+import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import javafx.scene.input.KeyCode;
+
+import java.io.File;
 
 public interface IModel {
 
@@ -31,4 +34,13 @@ public interface IModel {
     void setCharacterPositionRow(int row);
 
     void setMaze(int[][] maze);
+
+    void saveCurrentMaze(File file, String name);
+
+    void saveOriginalMaze(File file, String name);
+
+    void loadMaze(File file);
+
+    Maze getOriginal();
+
 }

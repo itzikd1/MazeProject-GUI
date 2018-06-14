@@ -1,6 +1,7 @@
 package ViewModel;
 
 import Model.IModel;
+import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
@@ -56,6 +57,10 @@ public class MyViewModel extends Observable implements Observer {
 
     public int[][] getMaze() {
         return model.getMaze();
+    }
+
+    public Maze getOriginal() {
+        return model.getOriginal();
     }
 
     public int getCharacterPositionRow() {

@@ -2,6 +2,7 @@ package View;
 
 import Model.MyModel;
 import ViewModel.MyViewModel;
+import algorithms.mazeGenerators.Position;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -175,7 +176,7 @@ public class MyViewController implements Observer, IView {
         int[][] currentMaze = viewModel.getMaze();
         int x1 = viewModel.getCharacterPositionRow();
         int y1 = viewModel.getCharacterPositionColumn();
-
+        Position goalPosition= viewModel.getOriginal().getGoalPosition();
 
         try {
             FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
@@ -185,6 +186,7 @@ public class MyViewController implements Observer, IView {
             o.writeObject(currentMaze);
             o.writeObject(x1);
             o.writeObject(y1);
+            o.writeObject(goalPosition);
             o.close();
             f.close();
 
@@ -210,12 +212,14 @@ public class MyViewController implements Observer, IView {
             int[][] currentMaze = (int[][]) oi.readObject();
             int x1 = (int) oi.readObject();
             int y1 = (int) oi.readObject();
+            Position goalPosition = (Position) oi.readObject();
             viewModel.setCharacterPositionRow(x1);
             viewModel.setCharacterPositionColumn(y1);
             viewModel.setMaze(currentMaze);
             oi.close();
             fi.close();
             mazeDisplayer.setMaze(currentMaze);
+            mazeDisplayer.setGoalPosition(goalPosition);
             displayMaze(currentMaze);
 
         } catch (FileNotFoundException e) {
