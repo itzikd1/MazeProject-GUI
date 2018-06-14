@@ -3,6 +3,7 @@ package View;
 import Model.MyModel;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -26,11 +27,13 @@ public class MyViewController implements Observer, IView {
     @FXML
     private MyViewModel viewModel = new MyViewModel(new MyModel());
     public MazeDisplay mazeDisplayer = new MazeDisplay();
+    boolean showonce=false;
     public javafx.scene.control.TextField txt_row;
     public javafx.scene.control.TextField txt_col;
     public javafx.scene.control.Label lbl_rowsNum;
     public javafx.scene.control.Label lbl_columnsNum;//where user wants to go
     public javafx.scene.control.Button GenerateMaze;
+    public javafx.scene.control.Button SolveMaze;
 
     public StringProperty characterPositionRow = new SimpleStringProperty();
     public StringProperty characterPositionColumn = new SimpleStringProperty();
@@ -51,10 +54,11 @@ public class MyViewController implements Observer, IView {
 //            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(), viewModel.getCharacterPositionColumn());
             displayMaze(viewModel.getMaze());
             GenerateMaze.setDisable(false);
-            if (viewModel.gameFinsih() == true) {
+            if (viewModel.gameFinsih() == true && showonce==false) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText(String.format("Game Done"));
                 alert.show();
+                showonce=true;
             }
             //mazeDisplayer.setCharacterPosition(mazeDisplayer.getCharacterPositionRow(),mazeDisplayer.getCharacterPositionColumn());
             mazeDisplayer.redraw();
@@ -90,6 +94,7 @@ public class MyViewController implements Observer, IView {
         int[][] temp = viewModel.generateMaze(heigth, width);
         mazeDisplayer.setMaze(temp);
         mazeDisplayer.endposition(viewModel.getendposition());
+        SolveMaze.setVisible(true);
         displayMaze(temp);
     }
 
@@ -98,10 +103,14 @@ public class MyViewController implements Observer, IView {
         System.out.println(viewModel.isSolved());
         viewModel.getSolution();
         System.out.println(viewModel.isSolved());
-
     }
 
-    private void showAlert(String alertMessage) {
+    public void exit(ActionEvent actionEvent) {
+        Platform.exit();
+    }
+
+
+        private void showAlert(String alertMessage) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText(alertMessage);
         alert.show();
