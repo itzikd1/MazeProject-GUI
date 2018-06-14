@@ -48,13 +48,13 @@ public class MyModel extends Observable implements IModel {
         return gameFinsih;
     }
 
-    public void MazeToArr(Maze m) { //TODO from int to byte
+    private void MazeToArr(Maze m) { //TODO from int to byte
         int row = m.numOfRows();
         int col = m.numOfColumns();
         maze = new int[row][col];
         for (int i = 0; i < row; i++)
             for (int j = 0; j < col; j++)
-                maze[i][j] = m.getCellValue(i, j); //TODO rannan check if this is good rows\col
+                maze[i][j] = m.getCellValue(i, j);
     }
 
     @Override
@@ -81,9 +81,7 @@ public class MyModel extends Observable implements IModel {
     private boolean isNotLegalMove(int x, int y) {
         if (x < 0 || y < 0 || x > maze.length - 1 || y > maze[0].length - 1)
             return true;
-        if (maze[x][y] == 1)
-            return true;
-        return false;
+        return maze[x][y] == 1;
     }
 
     @Override
@@ -93,48 +91,48 @@ public class MyModel extends Observable implements IModel {
         switch (movement) {
             case NUMPAD8:
             case W:
-                if (isNotLegalMove(x - 1, y) == false)
+                if (!isNotLegalMove(x - 1, y))
                     characterPositionRow--;
                 break;
             case NUMPAD2:
             case S:
-                if (isNotLegalMove(x + 1, y) == false)
+                if (!isNotLegalMove(x + 1, y))
                     characterPositionRow++;
                 break;
             case NUMPAD6:
             case D:
-                if (isNotLegalMove(x, y + 1) == false)
+                if (!isNotLegalMove(x, y + 1))
                     characterPositionColumn++;
                 break;
             case A:
             case NUMPAD4:
-                if (isNotLegalMove(x, y - 1) == false)
+                if (!isNotLegalMove(x, y - 1))
                     characterPositionColumn--;
                 break;
             case NUMPAD3:
-                if (isNotLegalMove(x + 1, y + 1) == false)
-                    if (isNotLegalMove(x, y + 1) == false || isNotLegalMove(x + 1, y) == false) {
+                if (!isNotLegalMove(x + 1, y + 1))
+                    if (!isNotLegalMove(x, y + 1) || !isNotLegalMove(x + 1, y)) {
                         characterPositionColumn++;
                         characterPositionRow++;
                     }
                 break;
             case NUMPAD1:
-                if (isNotLegalMove(x + 1, y - 1) == false)
-                    if (isNotLegalMove(x, y + 1) == false || isNotLegalMove(x - 1, y) == false) {
+                if (!isNotLegalMove(x + 1, y - 1))
+                    if (!isNotLegalMove(x, y - 1) || !isNotLegalMove(x + 1, y)) {
                         characterPositionColumn--;
                         characterPositionRow++;
                     }
                 break;
             case NUMPAD9:
-                if (isNotLegalMove(x - 1, y - 1) == false)
-                    if (isNotLegalMove(x - 1, y) == false || isNotLegalMove(x, y + 1) == false) {
+                if (!isNotLegalMove(x - 1, y + 1))
+                    if (!isNotLegalMove(x - 1, y) || !isNotLegalMove(x, y + 1)) {
                         characterPositionColumn++;
                         characterPositionRow--;
                     }
                 break;
             case NUMPAD7:
-                if (isNotLegalMove(x - 1, y - 1) == false)
-                    if (isNotLegalMove(x, y - 1) == false || isNotLegalMove(x - 1, y) == false) {
+                if (!isNotLegalMove(x - 1, y - 1))
+                    if (!isNotLegalMove(x, y - 1) || !isNotLegalMove(x - 1, y)) {
                         characterPositionColumn--;
                         characterPositionRow--;
                     }
@@ -173,7 +171,6 @@ public class MyModel extends Observable implements IModel {
         BreadthFirstSearch bfs = new BreadthFirstSearch();
         Solution keepSolution = bfs.solve(MazeToSolve);
         ArrayList<AState> solutionPath = keepSolution.getSolutionPath();
-        Solution solve = keepSolution;
         solved = true;
         for (int i = 0; i < solutionPath.size(); i++) {
             System.out.println(String.format("%s. %s", i, solutionPath.get(i)));
@@ -186,7 +183,7 @@ public class MyModel extends Observable implements IModel {
         }
         setChanged();
         notifyObservers();
-        return solve;
+        return keepSolution;
     }
 
     public int[][] getMazeSolutionArr() {

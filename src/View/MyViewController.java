@@ -53,9 +53,9 @@ public class MyViewController implements Observer, IView {
 //            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(), viewModel.getCharacterPositionColumn());
             displayMaze(viewModel.getMaze());
             GenerateMaze.setDisable(false);
-            if (viewModel.gameFinsih() == true && showonce == false) {
+            if (viewModel.gameFinsih() && !showonce) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText(String.format("Game Done"));
+                alert.setContentText("Game Done");
                 alert.show();
                 showonce = true;
             }
@@ -78,6 +78,7 @@ public class MyViewController implements Observer, IView {
     }
 
     public void generateMaze() {
+        showonce = false;
         int heigth;
         int width;
         try {
@@ -165,7 +166,7 @@ public class MyViewController implements Observer, IView {
             stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
             stage.show();
         } catch (Exception e) {
-
+            System.out.println("Error About.fxml not found");
         }
     }
 
