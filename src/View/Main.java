@@ -18,10 +18,12 @@ import java.util.Optional;
 public class Main extends Application {
 
     //TODO load and save
-    //TODO size of canvas isnt good
+    //TODO size of canvas isn't good
     //TODO hint show 1 step foward, and there is a counter so we know what is the next step
-    //TODO option, what algorithem to run and what type of maze
-    //TODO change images
+    //TODO option,add what algorithem to run and what type of maze to create
+    //TODO change images to something nice, add backround
+    //TODO add music
+    //TODO add a clock to main screen, find on internet the code
 
     @Override
     public void start(Stage primaryStage) throws Exception {
