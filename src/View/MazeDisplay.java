@@ -56,8 +56,8 @@ public class MazeDisplay extends Canvas {
         if (maze != null) {
             double canvasHeight = getHeight();
             double canvasWidth = getWidth();
-            double cellHeight = canvasHeight / maze.length;
-            double cellWidth = canvasWidth / maze[0].length;
+            double cellHeight = canvasHeight / maze[0].length;
+            double cellWidth = canvasWidth / maze.length;
 
             try {
                 GraphicsContext graphicsContext2D = getGraphicsContext2D();
@@ -69,7 +69,7 @@ public class MazeDisplay extends Canvas {
                     for (int j = 0; j < maze[i].length; j++) {
                         if (maze[i][j] == 1) {
                             //graphicsContext2D.fillRect(i * cellHeight, j * cellWidth, cellHeight, cellWidth);
-                            graphicsContext2D.drawImage(wallImage, i * cellHeight, j * cellWidth, cellHeight, cellWidth);
+                            graphicsContext2D.drawImage(wallImage, j * cellHeight, i * cellWidth, cellHeight, cellWidth);
                         }
                     }
                 }
