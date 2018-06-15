@@ -91,6 +91,10 @@ public class MyViewModel extends Observable implements Observer {
         model.setMaze(maze);
     }
 
+    public void setMazeOriginal(Maze mazeOriginal) {
+        model.setMazeOriginal(mazeOriginal);
+    }
+
     public void setGoalPosition(Position goalPosition) {
         model.setGoalPosition(goalPosition);
     }

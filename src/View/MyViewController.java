@@ -2,6 +2,7 @@ package View;
 
 import Model.MyModel;
 import ViewModel.MyViewModel;
+import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -109,6 +110,10 @@ public class MyViewController implements Observer, IView {
         Platform.exit();
     }
 
+    public void setMazeOriginal(Maze m){
+        viewModel.setMazeOriginal(m);
+    }
+
 
     private void showAlert(String alertMessage) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -187,10 +192,10 @@ public class MyViewController implements Observer, IView {
 
 
     public void saveGame() {
-        int[][] currentMaze = viewModel.getMaze();
-        int x1 = viewModel.getCharacterPositionRow();
-        int y1 = viewModel.getCharacterPositionColumn();
-        Position goalPosition = viewModel.getOriginal().getGoalPosition();
+        Maze currentMaze = viewModel.getOriginal();
+//        int x1 = viewModel.getCharacterPositionRow();
+//        int y1 = viewModel.getCharacterPositionColumn();
+//        Position goalPosition = viewModel.getOriginal().getGoalPosition();
 
         try {
             FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
@@ -199,9 +204,9 @@ public class MyViewController implements Observer, IView {
 
             // Write objects to file
             o.writeObject(currentMaze);
-            o.writeObject(x1);
-            o.writeObject(y1);
-            o.writeObject(goalPosition);
+//            o.writeObject(x1);
+//            o.writeObject(y1);
+//            o.writeObject(goalPosition);
             o.close();
             f.close();
 
@@ -223,19 +228,19 @@ public class MyViewController implements Observer, IView {
 
             // Read objects
 
-            int[][] currentMaze = (int[][]) oi.readObject();
-            int x1 = (int) oi.readObject();
-            int y1 = (int) oi.readObject();
-            Position goalPosition = (Position) oi.readObject();
-            viewModel.setCharacterPositionRow(x1);
-            viewModel.setCharacterPositionColumn(y1);
-            viewModel.setMaze(currentMaze);
-            viewModel.setGoalPosition(goalPosition);
+            Maze currentMaze = (Maze) oi.readObject();
+//            int x1 = (int) oi.readObject();
+//            int y1 = (int) oi.readObject();
+//            Position goalPosition = (Position) oi.readObject();
+//            viewModel.setCharacterPositionRow(x1);
+//            viewModel.setCharacterPositionColumn(y1);
+            viewModel.setMazeOriginal(currentMaze);
+//            viewModel.setGoalPosition(goalPosition);
             oi.close();
             fi.close();
-            mazeDisplayer.setMaze(currentMaze);
-            mazeDisplayer.setGoalPosition(goalPosition);
-            displayMaze(currentMaze);
+            mazeDisplayer.setMaze(viewModel.getMaze());
+//            mazeDisplayer.setGoalPosition(goalPosition);
+            displayMaze(viewModel.getMaze());
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found");

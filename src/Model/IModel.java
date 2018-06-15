@@ -45,4 +45,6 @@ public interface IModel {
 
     Maze getOriginal();
 
+    void setMazeOriginal(Maze mazeOriginal);
+
 }
