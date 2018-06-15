@@ -169,6 +169,7 @@ public class MyViewController implements Observer, IView {
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource("About.fxml").openStream());
             Scene scene = new Scene(root, 300, 165);
+            scene.getStylesheets().add("box.css");
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
             stage.show();
@@ -185,6 +186,7 @@ public class MyViewController implements Observer, IView {
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource("Help.fxml").openStream());
             Scene scene = new Scene(root);
+            scene.getStylesheets().add("box.css");
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
             stage.show();
@@ -200,6 +202,7 @@ public class MyViewController implements Observer, IView {
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource("Option.fxml").openStream());
             Scene scene = new Scene(root);
+            scene.getStylesheets().add("box.css");
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
             stage.show();
