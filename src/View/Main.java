@@ -17,13 +17,13 @@ import java.util.Optional;
 
 public class Main extends Application {
 
-    //TODO load and save
+    //TODO load and save - save works, load has error loading charcter\flag
     //TODO size of canvas isn't good
     //TODO hint show 1 step foward, and there is a counter so we know what is the next step
-    //TODO option,add what algorithem to run and what type of maze to create
+    //TODO option,add what algorithem to run and what type of maze to create - need to connect controllers
     //TODO change images to something nice, add backround
     //TODO add music
-    //TODO add a clock to main screen, find on internet the code
+    //TODO add a number of steps
 
     @Override
     public void start(Stage primaryStage) throws Exception {
