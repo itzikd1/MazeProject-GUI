@@ -190,23 +190,20 @@ public class MyViewController implements Observer, IView {
         }
     }
 
-
     public void saveGame() {
         Maze currentMaze = viewModel.getOriginal();
-//        int x1 = viewModel.getCharacterPositionRow();
-//        int y1 = viewModel.getCharacterPositionColumn();
-//        Position goalPosition = viewModel.getOriginal().getGoalPosition();
+        int x1 = viewModel.getCharacterPositionRow();
+        int y1 = viewModel.getCharacterPositionColumn();
+
 
         try {
             FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
-            f = new FileOutputStream(new File("myObjects.txt"));
             ObjectOutputStream o = new ObjectOutputStream(f);
 
             // Write objects to file
             o.writeObject(currentMaze);
-//            o.writeObject(x1);
-//            o.writeObject(y1);
-//            o.writeObject(goalPosition);
+            o.writeObject(x1);
+            o.writeObject(y1);
             o.close();
             f.close();
 
@@ -215,6 +212,7 @@ public class MyViewController implements Observer, IView {
         } catch (IOException e) {
             System.out.println("Error initializing stream");
         } catch (Exception e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         //endregion
@@ -229,27 +227,25 @@ public class MyViewController implements Observer, IView {
             // Read objects
 
             Maze currentMaze = (Maze) oi.readObject();
-//            int x1 = (int) oi.readObject();
-//            int y1 = (int) oi.readObject();
-//            Position goalPosition = (Position) oi.readObject();
-//            viewModel.setCharacterPositionRow(x1);
-//            viewModel.setCharacterPositionColumn(y1);
+            int x1 = (int) oi.readObject();
+            int y1 = (int) oi.readObject();
+            viewModel.setCharacterPositionRow(x1);
+            viewModel.setCharacterPositionColumn(y1);
             viewModel.setMazeOriginal(currentMaze);
-//            viewModel.setGoalPosition(goalPosition);
             oi.close();
             fi.close();
-            mazeDisplayer.setMaze(viewModel.getMaze());
-//            mazeDisplayer.setGoalPosition(goalPosition);
-            displayMaze(viewModel.getMaze());
+            int[][] tempM=viewModel.getMaze();
+            mazeDisplayer.setMaze(tempM);
+            displayMaze(tempM);
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         } catch (IOException e) {
             System.out.println("Error initializing stream");
         } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
     }
-
 }

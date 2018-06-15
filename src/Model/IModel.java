@@ -35,13 +35,9 @@ public interface IModel {
 
     void setCharacterPositionRow(int row);
 
+    void setMazeOriginal(Maze m);
+
     void setMaze(int[][] maze);
-
-    void saveCurrentMaze(File file, String name);
-
-    void saveOriginalMaze(File file, String name);
-
-    void loadMaze(File file);
 
     Maze getOriginal();
 

@@ -100,7 +100,7 @@ public class MyViewModel extends Observable implements Observer {
         return model.getMazeSolutionArr();
     }
 
-    public Maze setMazeOriginal(Maze mazeOriginal) {
-        return mazeOriginal;
+    public void setMazeOriginal(Maze mazeOriginal) {
+        model.setMazeOriginal(mazeOriginal);
     }
 }

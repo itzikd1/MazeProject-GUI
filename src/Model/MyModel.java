@@ -47,6 +47,7 @@ public class MyModel extends Observable implements IModel {
         this.characterPositionRow = row;
     }
 
+
     public int getCharacterPositionColumn() {
         return characterPositionColumn;
     }
@@ -199,18 +200,9 @@ public class MyModel extends Observable implements IModel {
         this.maze = maze;
     }
 
-    @Override
-    public void saveCurrentMaze(File file, String name) {
-    }
-
-    @Override
-    public void saveOriginalMaze(File file, String name) {
-
-    }
-
-    @Override
-    public void loadMaze(File file) {
-
+    public void setMazeOriginal(Maze m){
+        this.Original=m;
+        MazeToArr(m);
     }
 
     public boolean isSolved() {
