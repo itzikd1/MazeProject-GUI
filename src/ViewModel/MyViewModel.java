@@ -91,7 +91,7 @@ public class MyViewModel extends Observable implements Observer {
     public void setMaze(int[][] maze) {
         model.setMaze(maze);
     }
-    
+
 
     public void setGoalPosition(Position goalPosition) {
         model.setGoalPosition(goalPosition);

@@ -2,7 +2,6 @@ package Model;
 
 import Client.Client;
 import Client.IClientStrategy;
-import IO.MyCompressorOutputStream;
 import IO.MyDecompressorInputStream;
 import Server.Server;
 import Server.ServerStrategyGenerateMaze;

@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
-import Server.Server.Configurations;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,7 +33,7 @@ public class Option implements Initializable {
 
         algo.getItems().addAll("BFS", "DFS");
         maze.getItems().addAll("Simple Maze", "MyMaze");
-        thread.getItems().addAll("1", "2","3","4");
+        thread.getItems().addAll("1", "2", "3", "4");
 
     }
 }

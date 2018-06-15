@@ -17,13 +17,13 @@ import java.util.Optional;
 
 public class Main extends Application {
 
-    //TODO load and save - save works, load has error loading charcter\flag
+    //TODO load and save - save works, load has error loading charcter\flag - need to save charcter and flag and then load them as well
     //TODO size of canvas isn't good
     //TODO hint show 1 step foward, and there is a counter so we know what is the next step
-    //TODO option,add what algorithem to run and what type of maze to create - need to connect controllers
-    //TODO change images to something nice, add backround
+    //TODO option,add what algorithem to run and what type of maze to create - need to connect controllers - display works
+    //TODO change images to something nice, add backround maybe - css?
     //TODO add music
-    //TODO add a number of steps
+    //TODO add a number of steps maybe on side
 
     @Override
     public void start(Stage primaryStage) throws Exception {
