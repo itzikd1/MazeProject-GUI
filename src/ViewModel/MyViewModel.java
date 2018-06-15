@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.input.KeyCode;
 
+import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -90,7 +91,7 @@ public class MyViewModel extends Observable implements Observer {
     public void setMaze(int[][] maze) {
         model.setMaze(maze);
     }
-    
+
 
     public void setGoalPosition(Position goalPosition) {
         model.setGoalPosition(goalPosition);
@@ -100,7 +101,15 @@ public class MyViewModel extends Observable implements Observer {
         return model.getMazeSolutionArr();
     }
 
-    public Maze setMazeOriginal(Maze mazeOriginal) {
-        return mazeOriginal;
+    public void setMazeOriginal(Maze mazeOriginal) {
+        model.setMazeOriginal(mazeOriginal);
+    }
+
+    public void save(File file) {
+        model.save(file);
+    }
+
+    public void load(File file) {
+        model.load(file);
     }
 }

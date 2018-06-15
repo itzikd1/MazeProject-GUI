@@ -66,13 +66,13 @@ public class MazeDisplay extends Canvas {
                 }
 
                 //draw end point
-                Image endPos = new Image(new FileInputStream("resources/images/end.jpg"));
+                Image endPos = new Image(new FileInputStream("resources/images/3.png"));
                 graphicsContext2D.drawImage(endPos, endPosition.getColumnIndex() * cellHeight, endPosition.getRowIndex() * cellWidth, cellHeight, cellWidth);
 
                 //Draw solution
                 if (isSolved) {
                     Image SolutionImage = new Image(new FileInputStream("resources/images/eat.png"));
-                    for (int i = 0; i < solved[0].length; i++) {
+                    for (int i = 0; i < solved[0].length - 1; i++) {
                         int x = solved[0][i];
                         int y = solved[1][i];
                         graphicsContext2D.drawImage(SolutionImage, y * cellHeight, x * cellWidth, cellHeight, cellWidth);

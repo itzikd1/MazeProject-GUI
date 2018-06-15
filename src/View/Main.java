@@ -17,13 +17,15 @@ import java.util.Optional;
 
 public class Main extends Application {
 
-    //TODO load and save
+    //TODO load and save - save works, load has error loading charcter\flag - need to save charcter and flag and then load them as well
     //TODO size of canvas isn't good
     //TODO hint show 1 step foward, and there is a counter so we know what is the next step
-    //TODO option,add what algorithem to run and what type of maze to create
-    //TODO change images to something nice, add backround
+    //TODO option,add what algorithem to run and what type of maze to create - need to connect controllers - display works
+    //TODO change images to something nice, add backround maybe - css?
     //TODO add music
-    //TODO add a clock to main screen, find on internet the code
+    //TODO add icon at top
+    //TODO add javadocs...ewww
+    //TODO add a number of steps maybe on side
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -33,11 +35,12 @@ public class Main extends Application {
         MyViewModel viewModel = new MyViewModel(model);
         model.addObserver(viewModel);
         //--------------
-        primaryStage.setTitle("My Application!");
+        primaryStage.setTitle("Itzik's and Raanan's Maze!");
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(getClass().getResource("MyView.fxml").openStream());
 
         Scene scene = new Scene(root, 800, 700);
+        scene.getStylesheets().add("Main.css");
 //        scene.getStylesheets().add(getClass().getResource("ViewStyle.css").toExternalForm());
         //--------------
         MyViewController view = fxmlLoader.getController();

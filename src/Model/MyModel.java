@@ -47,6 +47,7 @@ public class MyModel extends Observable implements IModel {
         this.characterPositionRow = row;
     }
 
+
     public int getCharacterPositionColumn() {
         return characterPositionColumn;
     }
@@ -199,18 +200,9 @@ public class MyModel extends Observable implements IModel {
         this.maze = maze;
     }
 
-    @Override
-    public void saveCurrentMaze(File file, String name) {
-    }
-
-    @Override
-    public void saveOriginalMaze(File file, String name) {
-
-    }
-
-    @Override
-    public void loadMaze(File file) {
-
+    public void setMazeOriginal(Maze m){
+        this.Original=m;
+        MazeToArr(m);
     }
 
     public boolean isSolved() {
@@ -265,4 +257,34 @@ public class MyModel extends Observable implements IModel {
         this.characterPositionColumn = col;
     }
 
+    public void save(File file)
+    {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            ObjectOutputStream os = new ObjectOutputStream(fileOutputStream);
+            //myMaze.setM_startPosition(new Position(characterRow, characterColumn));
+            os.writeObject(Original);
+            os.flush();
+            os.close();
+        } catch (IOException ignored) {
+
+        }
+    }
+
+    public void load(File file)
+    {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            ObjectInputStream os = new ObjectInputStream(fileInputStream);
+            Maze temp = (Maze)os.readObject();
+            setMazeOriginal(temp);
+            os.close();
+            setChanged();
+            notifyObservers();
+        } catch (IOException ignored) {
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
