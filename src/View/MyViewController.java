@@ -190,6 +190,21 @@ public class MyViewController implements Observer, IView {
         }
     }
 
+    public void Option(ActionEvent actionEvent) {
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Option");
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent root = fxmlLoader.load(getClass().getResource("Option.fxml").openStream());
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Error Option.fxml not found");
+        }
+    }
+
     public void saveGame() {
         Maze currentMaze = viewModel.getOriginal();
         int x1 = viewModel.getCharacterPositionRow();
