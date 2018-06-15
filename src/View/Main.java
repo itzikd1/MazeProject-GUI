@@ -16,7 +16,7 @@ import javafx.stage.WindowEvent;
 import java.util.Optional;
 
 public class Main extends Application {
-@TODO
+
     //TODO load and save
     //TODO size of canvas isn't good
     //TODO hint show 1 step foward, and there is a counter so we know what is the next step
