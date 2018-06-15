@@ -16,7 +16,7 @@ import javafx.stage.WindowEvent;
 import java.util.Optional;
 
 public class Main extends Application {
-@TODO
+
     //TODO load and save
     //TODO size of canvas isn't good
     //TODO hint show 1 step foward, and there is a counter so we know what is the next step
@@ -27,6 +27,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Thread t1 = new musicThread("nnn");
+        t1.start();
         MyModel model = new MyModel();
         MyViewModel viewModel = new MyViewModel(model);
         model.addObserver(viewModel);
