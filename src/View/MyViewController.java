@@ -2,7 +2,8 @@ package View;
 
 import Model.MyModel;
 import ViewModel.MyViewModel;
-import algorithms.mazeGenerators.Maze;
+import algorithms.mazeGenerators.Position;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -26,11 +27,13 @@ public class MyViewController implements Observer, IView {
     @FXML
     private MyViewModel viewModel = new MyViewModel(new MyModel());
     public MazeDisplay mazeDisplayer = new MazeDisplay();
+    boolean showOnce = false;
     public javafx.scene.control.TextField txt_row;
     public javafx.scene.control.TextField txt_col;
     public javafx.scene.control.Label lbl_rowsNum;
     public javafx.scene.control.Label lbl_columnsNum;//where user wants to go
     public javafx.scene.control.Button GenerateMaze;
+    public javafx.scene.control.Button SolveMaze;
 
     public StringProperty characterPositionRow = new SimpleStringProperty();
     public StringProperty characterPositionColumn = new SimpleStringProperty();
@@ -51,10 +54,11 @@ public class MyViewController implements Observer, IView {
 //            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(), viewModel.getCharacterPositionColumn());
             displayMaze(viewModel.getMaze());
             GenerateMaze.setDisable(false);
-            if (viewModel.gameFinsih() == true) {
+            if (viewModel.gameFinish() && !showOnce) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText(String.format("Game Done"));
+                alert.setContentText("Game Done");
                 alert.show();
+                showOnce = true;
             }
             //mazeDisplayer.setCharacterPosition(mazeDisplayer.getCharacterPositionRow(),mazeDisplayer.getCharacterPositionColumn());
             mazeDisplayer.redraw();
@@ -66,7 +70,7 @@ public class MyViewController implements Observer, IView {
         int characterPositionRow = viewModel.getCharacterPositionRow();
         int characterPositionColumn = viewModel.getCharacterPositionColumn();
         mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
-        mazeDisplayer.endposition(viewModel.getendposition());
+        mazeDisplayer.endposition(viewModel.getEndPosition());
         mazeDisplayer.Solved(viewModel.getMazeSolutionArr());
         mazeDisplayer.isSolved(viewModel.isSolved());
         this.characterPositionRow.set(characterPositionRow + "");
@@ -75,31 +79,36 @@ public class MyViewController implements Observer, IView {
     }
 
     public void generateMaze() {
-        int heigth;
+        showOnce = false;
+        int height;
         int width;
         try {
-            heigth = Integer.valueOf(txt_row.getText());
+            height = Integer.valueOf(txt_row.getText());
         } catch (Exception e) {
-            heigth = 10;
+            height = 10;
         }
         try {
             width = Integer.valueOf(txt_col.getText());
         } catch (Exception e) {
             width = 10;
         }
-        int[][] temp = viewModel.generateMaze(heigth, width);
+        int[][] temp = viewModel.generateMaze(height, width);
         mazeDisplayer.setMaze(temp);
-        mazeDisplayer.endposition(viewModel.getendposition());
+        mazeDisplayer.endposition(viewModel.getEndPosition());
+        SolveMaze.setVisible(true);
         displayMaze(temp);
     }
 
     public void solveMaze(ActionEvent actionEvent) {
         showAlert("Solving maze..");
-        System.out.println(viewModel.isSolved());
         viewModel.getSolution();
-        System.out.println(viewModel.isSolved());
-
+        SolveMaze.setVisible(false);
     }
+
+    public void exit(ActionEvent actionEvent) {
+        Platform.exit();
+    }
+
 
     private void showAlert(String alertMessage) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -148,7 +157,7 @@ public class MyViewController implements Observer, IView {
     public void About(ActionEvent actionEvent) {
         try {
             Stage stage = new Stage();
-            stage.setTitle("AboutController");
+            stage.setTitle("About");
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource("About.fxml").openStream());
             Scene scene = new Scene(root, 300, 165);
@@ -156,7 +165,23 @@ public class MyViewController implements Observer, IView {
             stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
             stage.show();
         } catch (Exception e) {
+//            System.out.println(e);
+            System.out.println("Error About.fxml not found");
+        }
+    }
 
+    public void Help(ActionEvent actionEvent) {
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Help");
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent root = fxmlLoader.load(getClass().getResource("Help.fxml").openStream());
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Error Help.fxml not found");
         }
     }
 
@@ -165,7 +190,7 @@ public class MyViewController implements Observer, IView {
         int[][] currentMaze = viewModel.getMaze();
         int x1 = viewModel.getCharacterPositionRow();
         int y1 = viewModel.getCharacterPositionColumn();
-
+        Position goalPosition = viewModel.getOriginal().getGoalPosition();
 
         try {
             FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
@@ -176,6 +201,7 @@ public class MyViewController implements Observer, IView {
             o.writeObject(currentMaze);
             o.writeObject(x1);
             o.writeObject(y1);
+            o.writeObject(goalPosition);
             o.close();
             f.close();
 
@@ -184,7 +210,6 @@ public class MyViewController implements Observer, IView {
         } catch (IOException e) {
             System.out.println("Error initializing stream");
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         //endregion
@@ -201,12 +226,15 @@ public class MyViewController implements Observer, IView {
             int[][] currentMaze = (int[][]) oi.readObject();
             int x1 = (int) oi.readObject();
             int y1 = (int) oi.readObject();
+            Position goalPosition = (Position) oi.readObject();
             viewModel.setCharacterPositionRow(x1);
             viewModel.setCharacterPositionColumn(y1);
             viewModel.setMaze(currentMaze);
+            viewModel.setGoalPosition(goalPosition);
             oi.close();
             fi.close();
             mazeDisplayer.setMaze(currentMaze);
+            mazeDisplayer.setGoalPosition(goalPosition);
             displayMaze(currentMaze);
 
         } catch (FileNotFoundException e) {
@@ -214,11 +242,9 @@ public class MyViewController implements Observer, IView {
         } catch (IOException e) {
             System.out.println("Error initializing stream");
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
     }
-    //endregion
 
 }

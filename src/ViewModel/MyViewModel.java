@@ -1,20 +1,15 @@
 package ViewModel;
 
 import Model.IModel;
-import Model.MyModel;
+import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
-import algorithms.search.Solution;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 
 import java.util.Observable;
 import java.util.Observer;
 
-//TODO fix generate maze, so end position not on wall (3X3 size)
 public class MyViewModel extends Observable implements Observer {
 
     private IModel model;
@@ -42,12 +37,11 @@ public class MyViewModel extends Observable implements Observer {
     }
 
     public int[][] generateMaze(int width, int height) {
-        int [][] temp =  model.generateMaze(width, height);
-        return temp;
+        return model.generateMaze(width, height);
     }
 
-    public Position getendposition() {
-        return model.getEndpositionl();
+    public Position getEndPosition() {
+        return model.getEndPosition();
 
     }
 
@@ -55,12 +49,16 @@ public class MyViewModel extends Observable implements Observer {
         model.moveCharacter(movement);
     }
 
-    public boolean gameFinsih (){
-       return model.gameFinsih();
+    public boolean gameFinish() {
+        return model.gameFinish();
     }
 
     public int[][] getMaze() {
         return model.getMaze();
+    }
+
+    public Maze getOriginal() {
+        return model.getOriginal();
     }
 
     public int getCharacterPositionRow() {
@@ -71,8 +69,8 @@ public class MyViewModel extends Observable implements Observer {
         return characterPositionColumnIndex;
     }
 
-    public Solution getSolution() {
-        return model.generateSolution();
+    public void getSolution() {
+        model.generateSolution();
     }
 
     public boolean isSolved() {
@@ -80,20 +78,24 @@ public class MyViewModel extends Observable implements Observer {
     }
 
     public void setCharacterPositionRow(int row) {
-        characterPositionRowIndex=row;
+        characterPositionRowIndex = row;
         model.setCharacterPositionRow(row);
     }
 
     public void setCharacterPositionColumn(int col) {
-        characterPositionColumnIndex=col;
+        characterPositionColumnIndex = col;
         model.setCharacterPositionCol(col);
     }
 
-    public void setMaze(int [][] maze){
+    public void setMaze(int[][] maze) {
         model.setMaze(maze);
     }
 
-    public int[][] getMazeSolutionArr(){
+    public void setGoalPosition(Position goalPosition) {
+        model.setGoalPosition(goalPosition);
+    }
+
+    public int[][] getMazeSolutionArr() {
         return model.getMazeSolutionArr();
     }
 }
