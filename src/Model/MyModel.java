@@ -266,7 +266,7 @@ public class MyModel extends Observable implements IModel {
             os.writeObject(Original);
             os.flush();
             os.close();
-        } catch (IOException ex) {
+        } catch (IOException ignored) {
 
         }
     }
@@ -281,7 +281,7 @@ public class MyModel extends Observable implements IModel {
             os.close();
             setChanged();
             notifyObservers();
-        } catch (IOException ex) {
+        } catch (IOException ignored) {
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
