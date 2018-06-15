@@ -6,6 +6,7 @@ import IO.MyDecompressorInputStream;
 import Server.Server;
 import Server.ServerStrategyGenerateMaze;
 import Server.ServerStrategySolveSearchProblem;
+import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.AState;
@@ -217,7 +218,7 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
-    public void generateSolution() {
+    public void generateSolution(MyViewModel m, int charRow, int charCol) {
         serverSolveMaze = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
         serverSolveMaze.start();
         try {
@@ -229,6 +230,7 @@ public class MyModel extends Observable implements IModel {
                         ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                         toServer.flush();
                         Maze maze = Original;
+                        maze.setStartPosition(new Position(charRow,charCol));
                         toServer.writeObject(maze); //send maze to server
                         toServer.flush();
                         Solution mazeSolution = (Solution) fromServer.readObject(); //read generated maze (compressed with MyCompressor)from server

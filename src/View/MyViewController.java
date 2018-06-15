@@ -101,7 +101,7 @@ public class MyViewController implements Observer, IView {
 
     public void solveMaze(ActionEvent actionEvent) {
         showAlert("Solving maze..");
-        viewModel.getSolution();
+        viewModel.getSolution(this.viewModel,this.viewModel.getCharacterPositionRow(),this.viewModel.getCharacterPositionColumn());
         SolveMaze.setVisible(false);
     }
 
@@ -194,6 +194,7 @@ public class MyViewController implements Observer, IView {
 
         try {
             FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
+            f = new FileOutputStream(new File("myObjects.txt"));
             ObjectOutputStream o = new ObjectOutputStream(f);
 
             // Write objects to file

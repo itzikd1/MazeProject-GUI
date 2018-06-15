@@ -1,5 +1,6 @@
 package Model;
 
+import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 import javafx.scene.input.KeyCode;
@@ -18,7 +19,7 @@ public interface IModel {
 
     int[][] getMazeSolutionArr();
 
-    void generateSolution();
+    void generateSolution(MyViewModel m, int charRow, int charCol);
 
     boolean isSolved();
 
