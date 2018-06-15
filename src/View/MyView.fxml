@@ -31,7 +31,6 @@
                 <Menu mnemonicParsing="false" text="Options">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#Option" text="Properties" />
-                        <MenuItem mnemonicParsing="false" onAction="#solveMaze" text="Solve Maze" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">

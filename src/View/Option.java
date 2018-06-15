@@ -1,18 +1,20 @@
 package View;
 
 import javafx.application.Platform;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
+import Server.Server.Configurations;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Option implements Initializable {
     public javafx.scene.control.Button exit;
-//    public javafx.scene.control.Label text;
-//    public javafx.scene.control.Menu Manu;
+    public ChoiceBox algo;
+    public ChoiceBox maze;
+    public ChoiceBox thread;
+
 
     public void close() {
         Platform.exit();
@@ -22,14 +24,17 @@ public class Option implements Initializable {
         Stage s = (Stage) exit.getScene().getWindow();
         s.close();
     }
-//
-//    public void Manu(){
-//        EventHandler<Event> temp = Manu.getOnShown();
-//        System.out.println(temp);
-//
-//    }
+
+    public void save() {
+
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        algo.getItems().addAll("BFS", "DFS");
+        maze.getItems().addAll("Simple Maze", "MyMaze");
+        thread.getItems().addAll("1", "2","3","4");
+
     }
 }
