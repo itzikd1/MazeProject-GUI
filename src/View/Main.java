@@ -29,8 +29,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Thread t1 = new musicThread("nnn");
-        t1.start();
+//        Thread t1 = new musicThread("nnn");
+//        t1.start();
         MyModel model = new MyModel();
         MyViewModel viewModel = new MyViewModel(model);
         model.addObserver(viewModel);
