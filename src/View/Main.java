@@ -4,21 +4,29 @@ import Model.*;
 import View.MyViewController;
 import ViewModel.MyViewModel;
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
 import java.util.Optional;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+
+
+
+
+        Thread t1 = new musicThread("nnn");
+        t1.start();
         MyModel model = new MyModel();
         MyViewModel viewModel = new MyViewModel(model);
         model.addObserver(viewModel);
