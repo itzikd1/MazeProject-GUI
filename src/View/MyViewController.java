@@ -3,7 +3,6 @@ package View;
 import Model.MyModel;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.Position;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -18,9 +17,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
+import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -29,6 +29,7 @@ public class MyViewController implements Observer, IView {
     @FXML
     private MyViewModel viewModel = new MyViewModel(new MyModel());
     public MazeDisplay mazeDisplayer = new MazeDisplay();
+    int i = 0;
     boolean showOnce = false;
     public javafx.scene.control.TextField txt_row;
     public javafx.scene.control.TextField txt_col;
@@ -54,6 +55,7 @@ public class MyViewController implements Observer, IView {
     public void update(Observable o, Object arg) {
         if (o == viewModel) {
 //            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(), viewModel.getCharacterPositionColumn());
+            mazeDisplayer.setMaze(viewModel.getMaze());
             displayMaze(viewModel.getMaze());
             GenerateMaze.setDisable(false);
             if (viewModel.gameFinish() && !showOnce) {
@@ -103,7 +105,7 @@ public class MyViewController implements Observer, IView {
 
     public void solveMaze(ActionEvent actionEvent) {
         showAlert("Solving maze..");
-        viewModel.getSolution(this.viewModel,this.viewModel.getCharacterPositionRow(),this.viewModel.getCharacterPositionColumn());
+        viewModel.getSolution(this.viewModel, this.viewModel.getCharacterPositionRow(), this.viewModel.getCharacterPositionColumn());
         SolveMaze.setVisible(false);
     }
 
@@ -111,7 +113,7 @@ public class MyViewController implements Observer, IView {
         Platform.exit();
     }
 
-    public void setMazeOriginal(Maze m){
+    public void setMazeOriginal(Maze m) {
         viewModel.setMazeOriginal(m);
     }
 
@@ -207,41 +209,32 @@ public class MyViewController implements Observer, IView {
     }
 
     public void saveGame() {
-            FileChooser fc = new FileChooser();
-            fc.setTitle("Saving the maze");
-            fc.setInitialDirectory(null);
-            File file = fc.showSaveDialog((Stage) mazeDisplayer.getScene().getWindow());
-            if(file != null)
-                viewModel.save(file);
-        }
+        FileChooser fc = new FileChooser();
+        File filePath = new File("./Mazes/");
+        if (!filePath.exists())
+            filePath.mkdir();
+        fc.setTitle("Saving maze");
+        fc.setInitialFileName("Maze Number " + i + "");
+        i++;
+        fc.setInitialDirectory(filePath);
+        File file = fc.showSaveDialog((Stage) mazeDisplayer.getScene().getWindow());
+        if (file != null)
+            viewModel.save(file);
+    }
 
     public void loadGame() {
-        try {
-            FileInputStream fi = new FileInputStream(new File("myObjects.txt"));
-            ObjectInputStream oi = new ObjectInputStream(fi);
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Loading maze");
+        File filePath = new File("./Mazes/");
+        if (!filePath.exists())
+            filePath.mkdir();
+        fc.setInitialDirectory(filePath);
 
-            // Read objects
-
-            Maze currentMaze = (Maze) oi.readObject();
-            int x1 = (int) oi.readObject();
-            int y1 = (int) oi.readObject();
-            viewModel.setCharacterPositionRow(x1);
-            viewModel.setCharacterPositionColumn(y1);
-            viewModel.setMazeOriginal(currentMaze);
-            oi.close();
-            fi.close();
-            int[][] tempM=viewModel.getMaze();
-            mazeDisplayer.setMaze(tempM);
-            displayMaze(tempM);
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (IOException e) {
-            System.out.println("Error initializing stream");
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        File file = fc.showOpenDialog(new PopupWindow() {
+        });
+        if (file != null && file.exists() && !file.isDirectory()) {
+            viewModel.load(file);
+            mazeDisplayer.redraw();
         }
-
     }
 }

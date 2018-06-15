@@ -262,13 +262,30 @@ public class MyModel extends Observable implements IModel {
     {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
-            OutputStream os = new MyCompressorOutputStream(fileOutputStream);
+            ObjectOutputStream os = new ObjectOutputStream(fileOutputStream);
             //myMaze.setM_startPosition(new Position(characterRow, characterColumn));
-            os.write(Original.toByteArray());
+            os.writeObject(Original);
             os.flush();
             os.close();
         } catch (IOException ex) {
 
+        }
+    }
+
+    public void load(File file)
+    {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            ObjectInputStream os = new ObjectInputStream(fileInputStream);
+            Maze temp = (Maze)os.readObject();
+            setMazeOriginal(temp);
+            os.close();
+            setChanged();
+            notifyObservers();
+        } catch (IOException ex) {
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

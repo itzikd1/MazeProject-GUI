@@ -108,4 +108,8 @@ public class MyViewModel extends Observable implements Observer {
     public void save(File file) {
         model.save(file);
     }
+
+    public void load(File file) {
+        model.load(file);
+    }
 }

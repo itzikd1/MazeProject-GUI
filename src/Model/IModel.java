@@ -37,6 +37,8 @@ public interface IModel {
 
     void save(File file);
 
+    void load(File file);
+
     void setMazeOriginal(Maze m);
 
     void setMaze(int[][] maze);
