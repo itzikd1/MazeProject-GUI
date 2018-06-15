@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -23,7 +24,6 @@ public class Main extends Application {
     //TODO option,add what algorithem to run and what type of maze to create - need to connect controllers - display works
     //TODO change images to something nice, add backround maybe - css?
     //TODO add music
-    //TODO add icon at top
     //TODO add javadocs...ewww
     //TODO add a number of steps maybe on side
 
@@ -42,6 +42,9 @@ public class Main extends Application {
         Scene scene = new Scene(root, 800, 700);
         scene.getStylesheets().add("Main.css");
 //        scene.getStylesheets().add(getClass().getResource("ViewStyle.css").toExternalForm());
+
+        primaryStage.getIcons().add(new Image("file:resources/images/icon.png"));
+
         //--------------
         MyViewController view = fxmlLoader.getController();
 //        primaryStage.setFullScreen(true);
