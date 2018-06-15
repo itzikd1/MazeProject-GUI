@@ -200,12 +200,6 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
-    public void setMazeOriginal(Maze mazeOriginal) {
-        this.Original = mazeOriginal;
-        MazeToArr(Original);
-    }
-
-    @Override
     public void saveCurrentMaze(File file, String name) {
     }
 
