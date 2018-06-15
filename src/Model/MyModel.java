@@ -2,6 +2,7 @@ package Model;
 
 import Client.Client;
 import Client.IClientStrategy;
+import IO.MyCompressorOutputStream;
 import IO.MyDecompressorInputStream;
 import Server.Server;
 import Server.ServerStrategyGenerateMaze;
@@ -257,4 +258,17 @@ public class MyModel extends Observable implements IModel {
         this.characterPositionColumn = col;
     }
 
+    public void save(File file)
+    {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            OutputStream os = new MyCompressorOutputStream(fileOutputStream);
+            //myMaze.setM_startPosition(new Position(characterRow, characterColumn));
+            os.write(Original.toByteArray());
+            os.flush();
+            os.close();
+        } catch (IOException ex) {
+
+        }
+    }
 }

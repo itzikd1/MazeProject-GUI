@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -206,33 +207,13 @@ public class MyViewController implements Observer, IView {
     }
 
     public void saveGame() {
-        Maze currentMaze = viewModel.getOriginal();
-        int x1 = viewModel.getCharacterPositionRow();
-        int y1 = viewModel.getCharacterPositionColumn();
-
-
-        try {
-            FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
-            ObjectOutputStream o = new ObjectOutputStream(f);
-
-            // Write objects to file
-            o.writeObject(currentMaze);
-            o.writeObject(x1);
-            o.writeObject(y1);
-            o.close();
-            f.close();
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (IOException e) {
-            System.out.println("Error initializing stream");
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            FileChooser fc = new FileChooser();
+            fc.setTitle("Saving the maze");
+            fc.setInitialDirectory(null);
+            File file = fc.showSaveDialog((Stage) mazeDisplayer.getScene().getWindow());
+            if(file != null)
+                viewModel.save(file);
         }
-        //endregion
-
-    }
 
     public void loadGame() {
         try {
