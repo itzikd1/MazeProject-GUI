@@ -18,13 +18,10 @@ import java.util.Optional;
 
 public class Main extends Application {
 
-    //TODO DISPLAY SAVEGAME AFTER MAZE IS GENERATED( LOADED ) - fix not able to save if no maze- itzik
-    //TODO after loading - solution of previous maze still appears.
     //TODO size of canvas isn't good
-    //TODO hint still shows start position - fix this
-    // i dont think its necessary - player doesnt care which algo runs and what kind of maze it is.
+    //TODO hint still shows start position
     //TODO option,add what algorithem to run and what type of maze to create - need to connect controllers - display works
-    //TODO music - what to do when song ends, another song for finishing. - rannan
+    //TODO music - what to do when song ends, another song for finishing. - rannan - maybe do boolean ifsolved=true, change song
     //TODO add javadocs...ewww - itzik
     //TODO add a number of steps maybe on side
 
