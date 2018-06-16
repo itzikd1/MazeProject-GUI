@@ -66,12 +66,13 @@ public class MazeDisplay extends Canvas {
                 }
 
                 //draw end point
-                Image endPos = new Image(new FileInputStream("resources/images/3.png"));
+                Image endPos = new Image(new FileInputStream("resources/images/end2.png"));
                 graphicsContext2D.drawImage(endPos, endPosition.getColumnIndex() * cellHeight, endPosition.getRowIndex() * cellWidth, cellHeight, cellWidth);
 
                 //Draw solution
                 if (isSolved) {
-                    Image SolutionImage = new Image(new FileInputStream("resources/images/eat.png"));
+                    //Image SolutionImage = new Image(new FileInputStream("resources/images/eat.png"));
+                    Image SolutionImage = new Image(new FileInputStream("resources/images/egg.png"));
                     for (int i = 0; i < solved[0].length - 1; i++) {
                         int x = solved[0][i];
                         int y = solved[1][i];
@@ -83,7 +84,7 @@ public class MazeDisplay extends Canvas {
                 //Draw Character
                 //gc.setFill(Color.RED);
                 //gc.fillOval(characterPositionColumn * cellHeight, characterPositionRow * cellWidth, cellHeight, cellWidth);
-                Image characterImage = new Image(new FileInputStream("resources/images/char.png"));
+                Image characterImage = new Image(new FileInputStream("resources/images/neta.png"));
                 graphicsContext2D.drawImage(characterImage, characterPositionColumn * cellHeight, characterPositionRow * cellWidth, cellHeight, cellWidth);
             } catch (FileNotFoundException e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

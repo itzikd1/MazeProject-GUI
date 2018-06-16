@@ -109,7 +109,7 @@ public class MyViewController implements Observer, IView {
     public void solveMaze(ActionEvent actionEvent) {
         showAlert("Solving maze..");
         viewModel.getSolution(this.viewModel, this.viewModel.getCharacterPositionRow(), this.viewModel.getCharacterPositionColumn(), "solve");
-        SolveMaze.setVisible(false);
+//TODO        SolveMaze.setVisible(false);
     }
 
     public void getHint(ActionEvent actionEvent){
