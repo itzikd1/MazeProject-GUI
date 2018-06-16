@@ -24,9 +24,9 @@ public class Main extends Application {
     //TODO hint still shows start position
     // i dont think its necessary - player doesnt care which algo runs and what kind of maze it is.
     //TODO option,add what algorithem to run and what type of maze to create - need to connect controllers - display works
-    //TODO change images to something nice, add backround maybe - css?
-    //TODO music - what to do when song ends, another song for finishing.
-    //TODO add javadocs...ewww
+    //TODO change images to something nice, add backround maybe - css? - done?
+    //TODO music - what to do when song ends, another song for finishing. - itzik
+    //TODO add javadocs...ewww - itzik
     //TODO add a number of steps maybe on side
 
     @Override
