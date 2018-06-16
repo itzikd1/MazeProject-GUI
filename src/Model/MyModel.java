@@ -243,6 +243,7 @@ public class MyModel extends Observable implements IModel {
                             int i = 1;
                             mazeSolutionArr[0][i] = ((MazeState) (mazeSolutionSteps.get(i))).getRow();
                             mazeSolutionArr[1][i] = ((MazeState) (mazeSolutionSteps.get(i))).getCol();
+
                         }
 
                         setChanged();
@@ -295,6 +296,7 @@ public class MyModel extends Observable implements IModel {
             setGoalPosition(temp.getGoalPosition());
             setCharacterPositionRow(temp.getStartPosition().getRowIndex());
             setCharacterPositionCol(temp.getStartPosition().getColumnIndex());
+            solved=false;
             os.close();
             setChanged();
             notifyObservers();

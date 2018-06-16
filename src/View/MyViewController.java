@@ -32,6 +32,7 @@ public class MyViewController implements Observer, IView {
     public MazeDisplay mazeDisplayer = new MazeDisplay();
     int i = 0;
     boolean showOnce = false;
+    boolean hint=false;
     public javafx.scene.control.TextField txt_row;
     public javafx.scene.control.TextField txt_col;
     public javafx.scene.control.Label lbl_rowsNum;
@@ -82,6 +83,7 @@ public class MyViewController implements Observer, IView {
         mazeDisplayer.isSolved(viewModel.isSolved());
         this.characterPositionRow.set(characterPositionRow + "");
         this.characterPositionColumn.set(characterPositionColumn + "");
+        if(viewModel.isSolved())
         mazeDisplayer.redraw();
     }
 

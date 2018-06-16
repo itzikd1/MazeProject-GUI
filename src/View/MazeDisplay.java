@@ -81,6 +81,7 @@ public class MazeDisplay extends Canvas {
                 }
 
 
+
                 //Draw Character
                 //gc.setFill(Color.RED);
                 //gc.fillOval(characterPositionColumn * cellHeight, characterPositionRow * cellWidth, cellHeight, cellWidth);
