@@ -39,6 +39,7 @@ public class MyViewController implements Observer, IView {
     public javafx.scene.control.Label lbl_columnsNum;//where user wants to go
     public javafx.scene.control.Button GenerateMaze;
     public javafx.scene.control.Button SolveMaze;
+    public javafx.scene.control.Button save;
 
     public StringProperty characterPositionRow = new SimpleStringProperty();
     public StringProperty characterPositionColumn = new SimpleStringProperty();
@@ -88,6 +89,7 @@ public class MyViewController implements Observer, IView {
     }
 
     public void generateMaze() {
+        save.setVisible(true);
         showOnce = false;
         int height;
         int width;
