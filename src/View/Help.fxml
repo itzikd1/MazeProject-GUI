@@ -15,7 +15,7 @@
                                 <Button fx:id="exit" layoutX="171.0" layoutY="151.0" mnemonicParsing="false"
                                         onAction="#closew" text="Close Window"/>
                                 <Label layoutX="8.0" layoutY="6.0" prefHeight="163.0" prefWidth="425.0"
-                                       text="Hello, and welcome to out maze game.&#10;In this game you will need yo get from one end of the maze to&#10;the other side. If you want to get the solution please use the&#10;&quot;Solution&quot; button and follow the images with your character&#10;if you want a hint, you can use the hint button to get only 1&#10; step of the solution each time you press&#10;enjoy~!"
+                                       text="Hello, and welcome to our maze game.&#10;In this game you will need to find a path from start position to&#10;end position. If you want to get the solution please use the&#10;&quot;Solve Maze &quot; button and follow the signs with your character&#10;if you want a hint, you can use the Hint button to get only 1&#10; step of the solution each time you press Hint.&#10;enjoy~!"
                                        AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="8.0"
                                        AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <font>

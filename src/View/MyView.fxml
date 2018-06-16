@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
 <?import View.MazeDisplay?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
 <BorderPane onKeyPressed="#KeyPressed" prefHeight="480.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <top>
         <MenuBar prefWidth="600.0" BorderPane.alignment="CENTER">
@@ -68,7 +80,7 @@
                         <Button fx:id="GenerateMaze" defaultButton="true" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" onAction="#generateMaze" prefHeight="25.0" prefWidth="118.0" text="Generate Maze" />
                         <Button fx:id="save" layoutX="10.0" layoutY="169.0" mnemonicParsing="false" onAction="#saveGame" text="Save Game" />
                         <Button fx:id="load" layoutX="9.0" layoutY="206.0" mnemonicParsing="false" onAction="#loadGame" text="Load Game" />
-                        <Button fx:id="Hint" disable="true" layoutX="4.0" layoutY="82.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Hint" />
+                        <Button fx:id="Hint" layoutX="4.0" layoutY="82.0" mnemonicParsing="false" onAction="#getHint" prefHeight="25.0" prefWidth="118.0" text="Hint" />
                         <PasswordField layoutX="6.0" layoutY="110.0" prefHeight="16.0" prefWidth="115.0" promptText="Hint Password" />
                     </children>
                 </AnchorPane>

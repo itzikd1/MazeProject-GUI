@@ -70,8 +70,8 @@ public class MyViewModel extends Observable implements Observer {
         return characterPositionColumnIndex;
     }
 
-    public void getSolution(MyViewModel m, int charRow, int charCol) {
-        model.generateSolution(m, charRow, charCol);
+    public void getSolution(MyViewModel m, int charRow, int charCol, String x) {
+        model.generateSolution(m, charRow, charCol, x);
     }
 
     public boolean isSolved() {

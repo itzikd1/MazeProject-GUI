@@ -21,6 +21,7 @@ import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -56,6 +57,8 @@ public class MyViewController implements Observer, IView {
         if (o == viewModel) {
 //            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(), viewModel.getCharacterPositionColumn());
             mazeDisplayer.setMaze(viewModel.getMaze());
+            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(),viewModel.getCharacterPositionColumn());
+            mazeDisplayer.setGoalPosition(viewModel.getEndPosition());
             displayMaze(viewModel.getMaze());
             GenerateMaze.setDisable(false);
             if (viewModel.gameFinish() && !showOnce) {
@@ -105,7 +108,12 @@ public class MyViewController implements Observer, IView {
 
     public void solveMaze(ActionEvent actionEvent) {
         showAlert("Solving maze..");
-        viewModel.getSolution(this.viewModel, this.viewModel.getCharacterPositionRow(), this.viewModel.getCharacterPositionColumn());
+        viewModel.getSolution(this.viewModel, this.viewModel.getCharacterPositionRow(), this.viewModel.getCharacterPositionColumn(), "solve");
+//TODO        SolveMaze.setVisible(false);
+    }
+
+    public void getHint(ActionEvent actionEvent){
+        viewModel.getSolution(this.viewModel, this.viewModel.getCharacterPositionRow(), this.viewModel.getCharacterPositionColumn(), "hint");
         SolveMaze.setVisible(false);
     }
 
