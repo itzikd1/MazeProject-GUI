@@ -19,6 +19,7 @@ import java.util.Optional;
 public class Main extends Application {
 
     //TODO DISPLAY SAVEGAME AFTER MAZE IS GENERATED( LOADED )
+    //TODO after loading - solution of previous maze still appears.
     //TODO size of canvas isn't good
     //TODO hint still shows start position
     // i dont think its necessary - player doesnt care which algo runs and what kind of maze it is.

@@ -272,7 +272,8 @@ public class MyModel extends Observable implements IModel {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             ObjectOutputStream os = new ObjectOutputStream(fileOutputStream);
-            //TODO CHANGED
+            //TODO CHANGED 2 lines
+            solved = false;
             Original.setStartPosition(new Position(characterPositionRow,characterPositionColumn));
             //myMaze.setM_startPosition(new Position(characterRow, characterColumn));
             os.writeObject(Original);
