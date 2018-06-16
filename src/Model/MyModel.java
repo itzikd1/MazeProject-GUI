@@ -228,7 +228,7 @@ public class MyModel extends Observable implements IModel {
                         toServer.flush();
                         Solution mazeSolution = (Solution) fromServer.readObject(); //read generated maze (compressed with MyCompressor)from server
                         //Print Maze Solution retrieved from the server
-                        //TODO if (x == "solve") ?
+                        //TODO if (x == "solve") ? I USE THIS FUNCTION FOR HINTS AND SOLVE
                             solved = true;
                         ArrayList<AState> mazeSolutionSteps = mazeSolution.getSolutionPath();
                         int sizeOfSolution = mazeSolutionSteps.size();
@@ -272,6 +272,8 @@ public class MyModel extends Observable implements IModel {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             ObjectOutputStream os = new ObjectOutputStream(fileOutputStream);
+            //TODO CHANGED
+            Original.setStartPosition(new Position(characterPositionRow,characterPositionColumn));
             //myMaze.setM_startPosition(new Position(characterRow, characterColumn));
             os.writeObject(Original);
             os.flush();
@@ -288,8 +290,10 @@ public class MyModel extends Observable implements IModel {
             ObjectInputStream os = new ObjectInputStream(fileInputStream);
             Maze temp = (Maze)os.readObject();
             setMazeOriginal(temp);
-//            Original.setStartPosition((Position)os.readObject());
-//            Original.setGoalPosition((Position)os.readObject());
+            //TODO CHANGED 3 LINES
+            setGoalPosition(temp.getGoalPosition());
+            setCharacterPositionRow(temp.getStartPosition().getRowIndex());
+            setCharacterPositionCol(temp.getStartPosition().getColumnIndex());
             os.close();
             setChanged();
             notifyObservers();
