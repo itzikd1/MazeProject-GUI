@@ -40,7 +40,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(getClass().getResource("MyView.fxml").openStream());
 
-        Scene scene = new Scene(root, 800, 700);
+        Scene scene = new Scene(root, 600, 500);
         scene.getStylesheets().add("Main.css");
 //        scene.getStylesheets().add(getClass().getResource("ViewStyle.css").toExternalForm());
 

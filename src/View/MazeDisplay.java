@@ -41,8 +41,8 @@ public class MazeDisplay extends Canvas {
     public void redraw() {
         if (maze != null) {
 //            if (this.getScene()!=null) {
+//                this.setWidth(this.getScene().getHeight()-136);
 //                this.setHeight(this.getScene().getWidth());
-//                this.setWidth(this.getScene().getHeight()*8/11);
 //            }
             double canvasHeight = getHeight();
             double canvasWidth = getWidth();
