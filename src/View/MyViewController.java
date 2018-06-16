@@ -21,6 +21,7 @@ import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -105,7 +106,12 @@ public class MyViewController implements Observer, IView {
 
     public void solveMaze(ActionEvent actionEvent) {
         showAlert("Solving maze..");
-        viewModel.getSolution(this.viewModel, this.viewModel.getCharacterPositionRow(), this.viewModel.getCharacterPositionColumn());
+        viewModel.getSolution(this.viewModel, this.viewModel.getCharacterPositionRow(), this.viewModel.getCharacterPositionColumn(), "solve");
+        SolveMaze.setVisible(false);
+    }
+
+    public void getHint(ActionEvent actionEvent){
+        viewModel.getSolution(this.viewModel, this.viewModel.getCharacterPositionRow(), this.viewModel.getCharacterPositionColumn(), "hint");
         SolveMaze.setVisible(false);
     }
 

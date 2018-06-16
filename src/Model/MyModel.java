@@ -12,6 +12,7 @@ import algorithms.mazeGenerators.Position;
 import algorithms.search.AState;
 import algorithms.search.MazeState;
 import algorithms.search.Solution;
+import com.sun.management.VMOption;
 import javafx.scene.input.KeyCode;
 
 import java.io.*;
@@ -210,7 +211,7 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
-    public void generateSolution(MyViewModel m, int charRow, int charCol) {
+    public void generateSolution(MyViewModel m, int charRow, int charCol, String x) {
         serverSolveMaze = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
         serverSolveMaze.start();
         try {
@@ -227,14 +228,23 @@ public class MyModel extends Observable implements IModel {
                         toServer.flush();
                         Solution mazeSolution = (Solution) fromServer.readObject(); //read generated maze (compressed with MyCompressor)from server
                         //Print Maze Solution retrieved from the server
-                        solved = true;
+                        //TODO if (x == "solve") ?
+                            solved = true;
                         ArrayList<AState> mazeSolutionSteps = mazeSolution.getSolutionPath();
                         int sizeOfSolution = mazeSolutionSteps.size();
                         mazeSolutionArr = new int[2][sizeOfSolution];
-                        for (int i = 0; i < mazeSolutionSteps.size(); i++) {
+                        if(x == "solve") {
+                            for (int i = 0; i < mazeSolutionSteps.size(); i++) {
+                                mazeSolutionArr[0][i] = ((MazeState) (mazeSolutionSteps.get(i))).getRow();
+                                mazeSolutionArr[1][i] = ((MazeState) (mazeSolutionSteps.get(i))).getCol();
+                            }
+                        }
+                        else if (x == "hint"){
+                            int i = 1;
                             mazeSolutionArr[0][i] = ((MazeState) (mazeSolutionSteps.get(i))).getRow();
                             mazeSolutionArr[1][i] = ((MazeState) (mazeSolutionSteps.get(i))).getCol();
                         }
+
                         setChanged();
                         notifyObservers();
                     } catch (Exception e) {
@@ -278,6 +288,8 @@ public class MyModel extends Observable implements IModel {
             ObjectInputStream os = new ObjectInputStream(fileInputStream);
             Maze temp = (Maze)os.readObject();
             setMazeOriginal(temp);
+//            Original.setStartPosition((Position)os.readObject());
+//            Original.setGoalPosition((Position)os.readObject());
             os.close();
             setChanged();
             notifyObservers();

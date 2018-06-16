@@ -19,7 +19,7 @@ public interface IModel {
 
     int[][] getMazeSolutionArr();
 
-    void generateSolution(MyViewModel m, int charRow, int charCol);
+    void generateSolution(MyViewModel m, int charRow, int charCol, String x);
 
     boolean isSolved();
 
