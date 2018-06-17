@@ -270,6 +270,7 @@ public class MyViewController implements Observer, IView {
     }
 
     public void loadGame() {
+
         FileChooser fc = new FileChooser();
         fc.setTitle("Loading maze");
         File filePath = new File("./Mazes/");
@@ -281,6 +282,8 @@ public class MyViewController implements Observer, IView {
         });
         if (file != null && file.exists() && !file.isDirectory()) {
             viewModel.load(file);
+            if (songonce==true)
+                Music(0);
             mazeDisplayer.redraw();
         }
     }
