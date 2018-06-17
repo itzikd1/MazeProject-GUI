@@ -22,10 +22,7 @@ import javafx.stage.Modality;
 import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Paths;
 import java.util.Observable;
 import java.util.Observer;
@@ -197,8 +194,12 @@ public class MyViewController implements Observer, IView {
 
     public void MazeInfo() {
         String text = null;
+        OutputStream output = null;
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("./resources/config.properties"));
+            if (bufferedReader == null) {//check if file exthist
+                output = new FileOutputStream("Resources/config.properties");
+            }
             StringBuilder stringBuilder = new StringBuilder();
             String line = bufferedReader.readLine();
             line = bufferedReader.readLine();
@@ -210,16 +211,24 @@ public class MyViewController implements Observer, IView {
             text= stringBuilder.toString();
             bufferedReader.close();
         } catch (IOException e) { }
-        String[] split = text.split(",");
-        String content = "";
-        content = "Maze Algo: " + splitLine(split[0] + "\n");
-        content += "Thread Number: " + splitLine(split[1].substring(4) + "\n");
-        content += "Maze Type: " + splitLine(split[2].substring(4) + "\n");
-        Alert alert = new  Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Properties");
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.show();
+        if(text==null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("No Setting Found");
+            alert.setContentText("Please go to option and set what settings you want");
+            alert.show();
+        }
+        else {
+            String[] split = text.split(",");
+            String content = "";
+            content = "Maze Algo: " + splitLine(split[0] + "\n");
+            content += "Thread Number: " + splitLine(split[1].substring(4) + "\n");
+            content += "Maze Type: " + splitLine(split[2].substring(4) + "\n");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Properties");
+            alert.setHeaderText(null);
+            alert.setContentText(content);
+            alert.show();
+        }
     }
 
     private String splitLine(String s) {
