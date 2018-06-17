@@ -21,7 +21,6 @@ public class Main extends Application {
     //TODO fix picture so no backround
     //TODO add javadocs...ewww - itzik
     //TODO hint still shows start position - how to fix
-    //TODO option,add what algorithem to run and what type of maze to create - need to connect controllers - display works
 
     @Override
     public void start(Stage primaryStage) throws Exception {

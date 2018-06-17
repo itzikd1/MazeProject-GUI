@@ -18,7 +18,9 @@ public class Option implements Initializable {
     public ChoiceBox algo;
     public ChoiceBox maze;
     public ChoiceBox thread;
-
+    String algor="BFS";
+    String mazeP="MyMazeGenerator";
+    String core="2";
 
     public void close() {
         Platform.exit();
@@ -31,7 +33,7 @@ public class Option implements Initializable {
 
     public void save() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText(String.format("Settings Saved"));
+        alert.setContentText(String.format("Settings Saved \n "+ "\n Algorithem is: "+algor+ "\n MazeType is: "+mazeP+ "\n Number of cores: "+core));
         alert.show();
     }
 
@@ -66,17 +68,14 @@ public class Option implements Initializable {
         if (input == null) {//check if file exthist
             output = new FileOutputStream("Resources/config.properties");
             Properties prop = new Properties(); //create new prop file
-            String algor="BFS";
             if (algo.getValue()==(String)"BFS")
                 algor="BreadthFirstSearch";
             if (algo.getValue()==(String)"DFS")
                 algor="DepthFirstSearch";
-            String mazeP="MyMaze";
             if (maze.getValue()==(String)"SimpleMaze")
                 mazeP="MyMazeGenerator";
             if (maze.getValue()==(String)"MyMazeGenerator")
                 mazeP="MyMazeGenerator";
-            String core="2";
             if (thread.getValue()==(String)"1")
                 core="1";
             if (thread.getValue()==(String)"2")
