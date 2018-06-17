@@ -1,7 +1,9 @@
 package View;
 
 import javafx.application.Platform;
+import Server.*;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 
@@ -12,6 +14,7 @@ import java.util.ResourceBundle;
 
 public class Option implements Initializable {
     public javafx.scene.control.Button exit;
+    public javafx.scene.control.Button save;
     public ChoiceBox algo;
     public ChoiceBox maze;
     public ChoiceBox thread;
@@ -27,19 +30,22 @@ public class Option implements Initializable {
     }
 
     public void save() {
-
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(String.format("Settings Saved"));
+        alert.show();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Server.Configurations.Conf();
 
         algo.getItems().addAll("BFS", "DFS");
-        maze.getItems().addAll("Simple Maze", "MyMaze");
+        maze.getItems().addAll("SimpleMaze", "MyMazeGenerator");
         thread.getItems().addAll("1", "2", "3", "4");
 
     }
 
-    public static void SetConf() throws IOException {
+    public void SetConf() throws IOException {
         OutputStream output = null;
         InputStream input = null;
         String text = null;
@@ -60,11 +66,29 @@ public class Option implements Initializable {
         if (input == null) {//check if file exthist
             output = new FileOutputStream("Resources/config.properties");
             Properties prop = new Properties(); //create new prop file
+            String algor="BFS";
+            if (algo.getValue()==(String)"BFS")
+                algor="BreadthFirstSearch";
+            if (algo.getValue()==(String)"DFS")
+                algor="DepthFirstSearch";
+            String mazeP="MyMaze";
+            if (maze.getValue()==(String)"SimpleMaze")
+                mazeP="MyMazeGenerator";
+            if (maze.getValue()==(String)"MyMazeGenerator")
+                mazeP="MyMazeGenerator";
+            String core="2";
+            if (thread.getValue()==(String)"1")
+                core="1";
+            if (thread.getValue()==(String)"2")
+                core="2";
+            if (thread.getValue()==(String)"3")
+                core="3";
+            if (thread.getValue()==(String)"4")
+                core="4";
 
-            // set the properties value
-            prop.setProperty("MazeAlgoType", "test");
-            prop.setProperty("numberCores", "2");
-            prop.setProperty("MazeType", "MyMazeGenerator");
+            prop.setProperty("MazeAlgoType", algor);
+            prop.setProperty("numberCores", core);
+            prop.setProperty("MazeType", mazeP);
 
             // save properties to project root folder
             prop.store(output, null);
@@ -77,5 +101,6 @@ public class Option implements Initializable {
                 e.printStackTrace();
             }
         }
+        save();
     }
 }
