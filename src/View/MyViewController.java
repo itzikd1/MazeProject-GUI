@@ -43,6 +43,7 @@ public class MyViewController implements Observer, IView {
     public javafx.scene.control.Label lbl_columnsNum;//where user wants to go
     public javafx.scene.control.Button GenerateMaze;
     public javafx.scene.control.Button SolveMaze;
+    public javafx.scene.control.Button Hint;
     public javafx.scene.control.Button save;
     private MediaPlayer temp;
 
@@ -103,6 +104,7 @@ public class MyViewController implements Observer, IView {
     }
 
     public void generateMaze() {
+        Hint.setDisable(false);
         if (songonce == true)
             Music(0);
         save.setVisible(true);
@@ -134,7 +136,7 @@ public class MyViewController implements Observer, IView {
 
     public void getHint(ActionEvent actionEvent) {
         viewModel.getSolution(this.viewModel, this.viewModel.getCharacterPositionRow(), this.viewModel.getCharacterPositionColumn(), "hint");
-        SolveMaze.setVisible(false);
+        SolveMaze.setVisible(true);
     }
 
     public void exit(ActionEvent actionEvent) {
