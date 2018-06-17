@@ -43,7 +43,11 @@
         </MenuBar>
     </top>
     <center>
-        <MazeDisplay fx:id="mazeDisplayer" height="450.0" width="450.0" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="MazePane" minHeight="450" minWidth="450" BorderPane.alignment="CENTER">
+         <children>
+              <MazeDisplay fx:id="mazeDisplayer" height="${MazePane.height}" width="${MazePane.width}"/>
+         </children>
+      </AnchorPane>
     </center>
     <left>
         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">

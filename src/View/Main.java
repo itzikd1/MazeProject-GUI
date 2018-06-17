@@ -39,6 +39,8 @@ public class Main extends Application {
 //        scene.getStylesheets().add(getClass().getResource("ViewStyle.css").toExternalForm());
 
         primaryStage.getIcons().add(new Image("file:resources/images/icon.png"));
+        primaryStage.setMinHeight(500);
+        primaryStage.setMinWidth(600);
 
         //--------------
         MyViewController view = fxmlLoader.getController();

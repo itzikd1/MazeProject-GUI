@@ -44,8 +44,8 @@ public class MazeDisplay extends Canvas {
 //                this.setWidth(this.getScene().getHeight()-136);
 //                this.setHeight(this.getScene().getWidth());
 //            }
-            double canvasHeight = getHeight();
-            double canvasWidth = getWidth();
+            double canvasHeight = getWidth();
+            double canvasWidth = getHeight();
             double cellHeight = canvasHeight / maze[0].length;
             double cellWidth = canvasWidth / maze.length;
 
