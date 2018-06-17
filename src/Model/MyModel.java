@@ -187,6 +187,7 @@ public class MyModel extends Observable implements IModel {
         return maze;
     }
 
+
     @Override
     public void setGoalPosition(Position goalPosition) {
         this.endPosition = goalPosition;

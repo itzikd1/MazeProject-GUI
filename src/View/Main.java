@@ -18,17 +18,15 @@ import java.util.Optional;
 
 public class Main extends Application {
 
-    //TODO size of canvas isn't good
-    //TODO hint still shows start position
-    //TODO option,add what algorithem to run and what type of maze to create - need to connect controllers - display works
-    //TODO music - what to do when song ends, another song for finishing. - rannan - maybe do boolean ifsolved=true, change song
     //TODO add javadocs...ewww - itzik
-    //TODO add a number of steps maybe on side
+    //TODO hint still shows start position - how to fix
+    //TODO music - what to do when song ends, another song for finishing. - rannan - maybe do boolean ifsolved=true, change song
+    //TODO option,add what algorithem to run and what type of maze to create - need to connect controllers - display works
+    //TODO size of canvas isn't good
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Thread t1 = new musicThread("nnn");
-        t1.start();
+
         MyModel model = new MyModel();
         MyViewModel viewModel = new MyViewModel(model);
         model.addObserver(viewModel);

@@ -15,13 +15,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.nio.file.Paths;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -32,7 +34,9 @@ public class MyViewController implements Observer, IView {
     public MazeDisplay mazeDisplayer = new MazeDisplay();
     int i = 0;
     boolean showOnce = false;
-    boolean hint=false;
+    boolean songonce = true;
+    Thread t1;
+    boolean hint = false;
     public javafx.scene.control.TextField txt_row;
     public javafx.scene.control.TextField txt_col;
     public javafx.scene.control.Label lbl_rowsNum;
@@ -40,6 +44,7 @@ public class MyViewController implements Observer, IView {
     public javafx.scene.control.Button GenerateMaze;
     public javafx.scene.control.Button SolveMaze;
     public javafx.scene.control.Button save;
+    private MediaPlayer temp;
 
     public StringProperty characterPositionRow = new SimpleStringProperty();
     public StringProperty characterPositionColumn = new SimpleStringProperty();
@@ -59,13 +64,22 @@ public class MyViewController implements Observer, IView {
         if (o == viewModel) {
 //            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(), viewModel.getCharacterPositionColumn());
             mazeDisplayer.setMaze(viewModel.getMaze());
-            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(),viewModel.getCharacterPositionColumn());
+            mazeDisplayer.setCharacterPosition(viewModel.getCharacterPositionRow(), viewModel.getCharacterPositionColumn());
             mazeDisplayer.setGoalPosition(viewModel.getEndPosition());
             displayMaze(viewModel.getMaze());
             GenerateMaze.setDisable(false);
+//            if (songonce==false)
+//            {
+//                t1= new musicThread("nnn");
+//                t1.start();
+//                songonce=true;
+//            }
             if (viewModel.gameFinish() && !showOnce) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("Game Done");
+                Music(1);
+//                t1.interrupt();
+//                t1 = new musicThread("nnn");
                 alert.show();
                 showOnce = true;
             }
@@ -84,11 +98,13 @@ public class MyViewController implements Observer, IView {
         mazeDisplayer.isSolved(viewModel.isSolved());
         this.characterPositionRow.set(characterPositionRow + "");
         this.characterPositionColumn.set(characterPositionColumn + "");
-        if(viewModel.isSolved())
-        mazeDisplayer.redraw();
+        if (viewModel.isSolved())
+            mazeDisplayer.redraw();
     }
 
     public void generateMaze() {
+        if (songonce == true)
+            Music(0);
         save.setVisible(true);
         showOnce = false;
         int height;
@@ -116,7 +132,7 @@ public class MyViewController implements Observer, IView {
 //TODO        SolveMaze.setVisible(false);
     }
 
-    public void getHint(ActionEvent actionEvent){
+    public void getHint(ActionEvent actionEvent) {
         viewModel.getSolution(this.viewModel, this.viewModel.getCharacterPositionRow(), this.viewModel.getCharacterPositionColumn(), "hint");
         SolveMaze.setVisible(false);
     }
@@ -205,6 +221,22 @@ public class MyViewController implements Observer, IView {
         } catch (Exception e) {
             System.out.println("Error Help.fxml not found");
         }
+    }
+
+    public void Music(int x) {
+        if (temp != null)
+            temp.stop();
+        String path = "";
+        if (x == 0) {
+            songonce = false;
+            path = "resources\\song.mp3";
+        }
+        else {
+            songonce=true;
+            path = "resources\\end.mpeg";
+        }Media tempp = new Media(Paths.get(path).toUri().toString());
+        temp = new MediaPlayer(tempp);
+        temp.play();
     }
 
     public void Option(ActionEvent actionEvent) {
