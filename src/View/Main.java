@@ -18,7 +18,6 @@ import java.util.Optional;
 
 public class Main extends Application {
 
-    //TODO fix picture so no backround
     //TODO add javadocs...ewww - itzik
     //TODO hint still shows start position - how to fix
 

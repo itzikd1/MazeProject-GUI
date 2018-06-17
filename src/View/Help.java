@@ -2,6 +2,7 @@ package View;
 
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -22,5 +23,6 @@ public class Help implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
     }
 }

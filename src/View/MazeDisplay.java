@@ -66,7 +66,7 @@ public class MazeDisplay extends Canvas {
                 }
 
                 //draw end point
-                Image endPos = new Image(new FileInputStream("resources/images/end2.png"));
+                Image endPos = new Image(new FileInputStream("resources/images/end.png"));
                 graphicsContext2D.drawImage(endPos, endPosition.getColumnIndex() * cellHeight, endPosition.getRowIndex() * cellWidth, cellHeight, cellWidth);
 
                 //Draw solution
