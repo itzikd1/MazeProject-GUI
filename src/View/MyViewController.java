@@ -22,7 +22,10 @@ import javafx.stage.Modality;
 import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Observable;
 import java.util.Observer;
@@ -190,6 +193,38 @@ public class MyViewController implements Observer, IView {
                 mazeDisplayer.redraw();
             }
         });
+    }
+
+    public void MazeInfo() {
+        String text = null;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("./resources/config.properties"));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line = bufferedReader.readLine();
+            line = bufferedReader.readLine();
+            while (line != null) {
+                stringBuilder.append(line + ",");
+                stringBuilder.append(System.lineSeparator());
+                line = bufferedReader.readLine();
+            }
+            text= stringBuilder.toString();
+            bufferedReader.close();
+        } catch (IOException e) { }
+        String[] split = text.split(",");
+        String content = "";
+        content = "Maze Algo: " + splitLine(split[0] + "\n");
+        content += "Thread Number: " + splitLine(split[1].substring(4) + "\n");
+        content += "Maze Type: " + splitLine(split[2].substring(4) + "\n");
+        Alert alert = new  Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Properties");
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.show();
+    }
+
+    private String splitLine(String s) {
+        String [] splitedLine = s.split("=");
+        return splitedLine[1];
     }
 
     public void About(ActionEvent actionEvent) {
