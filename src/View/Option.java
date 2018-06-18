@@ -73,7 +73,7 @@ public class Option implements Initializable {
             if (algo.getValue()==(String)"DFS")
                 algor="DepthFirstSearch";
             if (maze.getValue()==(String)"SimpleMaze")
-                mazeP="MyMazeGenerator";
+                mazeP="SimpleMazeGenerator";
             if (maze.getValue()==(String)"MyMazeGenerator")
                 mazeP="MyMazeGenerator";
             if (thread.getValue()==(String)"1")
