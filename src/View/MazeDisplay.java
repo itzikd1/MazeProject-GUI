@@ -82,9 +82,13 @@ public class MazeDisplay extends Canvas {
 
 
 
-                //Draw Character
+
                 //gc.setFill(Color.RED);
                 //gc.fillOval(characterPositionColumn * cellHeight, characterPositionRow * cellWidth, cellHeight, cellWidth);
+                //draw start point
+                Image StartPoint = new Image(new FileInputStream("resources/images/house.jpg"));
+                graphicsContext2D.drawImage(StartPoint, 0, 0, cellHeight, cellWidth);
+                //Draw Character
                 Image characterImage = new Image(new FileInputStream("resources/images/neta.png"));
                 graphicsContext2D.drawImage(characterImage, characterPositionColumn * cellHeight, characterPositionRow * cellWidth, cellHeight, cellWidth);
             } catch (FileNotFoundException e) {
