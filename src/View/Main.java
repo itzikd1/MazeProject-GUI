@@ -20,7 +20,6 @@ public class Main extends Application {
 
     //TODO fix end backround
     //TODO add javadocs...ewww - itzik
-    //TODO hint still shows start position - how to fix - picture with backround - start point
 
     @Override
     public void start(Stage primaryStage) throws Exception {
