@@ -18,8 +18,7 @@ import java.util.Optional;
 
 public class Main extends Application {
 
-    //TODO fix end backround
-    //TODO add javadocs...ewww - itzik
+    //TODO add javadocs
 
     @Override
     public void start(Stage primaryStage) throws Exception {
